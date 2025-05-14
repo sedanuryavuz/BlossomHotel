@@ -1,0 +1,6 @@
+@BlossomHotel.WebApi_HostAddress = http://localhost:5231
+
+GET {{BlossomHotel.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
