@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Horizon Hotel - Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar p-3" style="width: 250px;">
+            <div class="text-center mb-4">
+                <h4>Grand Horizon Hotel</h4>
+                <p class="text-muted">Admin Dashboard</p>
+            </div>
+            
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-calendar-check"></i> Bookings
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-bed"></i> Rooms
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-users"></i> Guests
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-concierge-bell"></i> Services
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-dollar-sign"></i> Payments
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-chart-line"></i> Reports
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                </li>
+                <li class="nav-item mt-3">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <div class="header">
+                <h5 class="mb-0">Dashboard Overview</h5>
+                <div class="d-flex align-items-center">
+                    <div class="search-box me-3">
+                        <i class="fas fa-search"></i>
+                        <input type="text" class="form-control" placeholder="Search...">
+                    </div>
+                    <div class="position-relative me-3">
+                        <i class="fas fa-bell fs-5 text-muted"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+                        <span>Admin User</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="stat-card" style="background: linear-gradient(135deg, #3498db, #2c3e50);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="count">142</div>
+                                <div class="title">Total Rooms</div>
+                            </div>
+                            <i class="fas fa-bed"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="count">118</div>
+                                <div class="title">Occupied Rooms</div>
+                            </div>
+                            <i class="fas fa-key"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="count">12</div>
+                                <div class="title">Maintenance</div>
+                            </div>
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="stat-card" style="background: linear-gradient(135deg, #f39c12, #d35400);">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <div class="count">$24,580</div>
+                                <div class="title">Today's Revenue</div>
+                            </div>
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Charts and Recent Bookings -->
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Occupancy Rate</span>
+                            <div>
+                                <select class="form-select form-select-sm" style="width: 120px;">
+                                    <option>This Week</option>
+                                    <option>This Month</option>
+                                    <option selected>This Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="occupancyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Room Status
+                        </div>
+                        <div class="card-body">
+                            <div class="chart-container">
+                                <canvas id="roomStatusChart"></canvas>
+                            </div>
+                            <div class="mt-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="room-status available"></span>
+                                    <span>Available (24)</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="room-status occupied"></span>
+                                    <span>Occupied (118)</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="room-status reserved"></span>
+                                    <span>Reserved (15)</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="room-status maintenance"></span>
+                                    <span>Maintenance (12)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Bookings and Quick Actions -->
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Recent Bookings</span>
+                            <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Booking ID</th>
+                                            <th>Guest</th>
+                                            <th>Room</th>
+                                            <th>Check-In</th>
+                                            <th>Check-Out</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#GH-2023-1256</td>
+                                            <td>John Smith</td>
+                                            <td>Deluxe Suite (305)</td>
+                                            <td>15 Oct 2023</td>
+                                            <td>20 Oct 2023</td>
+                                            <td><span class="badge bg-success">Checked In</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#GH-2023-1255</td>
+                                            <td>Emma Johnson</td>
+                                            <td>Executive Suite (412)</td>
+                                            <td>16 Oct 2023</td>
+                                            <td>18 Oct 2023</td>
+                                            <td><span class="badge bg-warning text-dark">Pending</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#GH-2023-1254</td>
+                                            <td>Michael Brown</td>
+                                            <td>Presidential Suite (801)</td>
+                                            <td>12 Oct 2023</td>
+                                            <td>15 Oct 2023</td>
+                                            <td><span class="badge bg-secondary">Completed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#GH-2023-1253</td>
+                                            <td>Sarah Williams</td>
+                                            <td>Standard Room (204)</td>
+                                            <td>18 Oct 2023</td>
+                                            <td>22 Oct 2023</td>
+                                            <td><span class="badge bg-info">Confirmed</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>#GH-2023-1252</td>
+                                            <td>David Lee</td>
+                                            <td>Family Room (512)</td>
+                                            <td>20 Oct 2023</td>
+                                            <td>25 Oct 2023</td>
+                                            <td><span class="badge bg-success">Checked In</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary">View</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            Quick Actions
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-primary w-100 mb-3">
+                                <i class="fas fa-plus me-2"></i> New Booking
+                            </button>
+                            <button class="btn btn-outline-primary w-100 mb-3">
+                                <i class="fas fa-bed me-2"></i> Manage Rooms
+                            </button>
+                            <button class="btn btn-outline-primary w-100 mb-3">
+                                <i class="fas fa-users me-2"></i> Add Guest
+                            </button>
+                            <button class="btn btn-outline-primary w-100 mb-3">
+                                <i class="fas fa-concierge-bell me-2"></i> Room Service
+                            </button>
+                            <button class="btn btn-outline-primary w-100">
+                                <i class="fas fa-file-invoice-dollar me-2"></i> Generate Invoice
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            Upcoming Check-Outs
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-door-open fs-4 text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0">Room 305</h6>
+                                    <small class="text-muted">John Smith - Today at 11:00 AM</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-door-open fs-4 text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0">Room 412</h6>
+                                    <small class="text-muted">Emma Johnson - Tomorrow at 10:00 AM</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-door-open fs-4 text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0">Room 204</h6>
+                                    <small class="text-muted">Sarah Williams - Oct 22 at 12:00 PM</small>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-door-open fs-4 text-primary"></i>
+                                </div>
+                                <div class="flex-grow-1 ms-3">
+                                    <h6 class="mb-0">Room 512</h6>
+                                    <small class="text-muted">David Lee - Oct 25 at 11:00 AM</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        // Occupancy Chart
+        const occupancyCtx = document.getElementById('occupancyChart').getContext('2d');
+        const occupancyChart = new Chart(occupancyCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                datasets: [{
+                    label: 'Occupancy Rate %',
+                    data: [65, 59, 70, 72, 75, 80, 85, 82, 78, 83, 75, 70],
+                    backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Room Status Chart
+        const roomStatusCtx = document.getElementById('roomStatusChart').getContext('2d');
+        const roomStatusChart = new Chart(roomStatusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Available', 'Occupied', 'Reserved', 'Maintenance'],
+                datasets: [{
+                    data: [24, 118, 15, 12],
+                    backgroundColor: [
+                        '#2ecc71',
+                        '#e74c3c',
+                        '#3498db',
+                        '#f39c12'
+                    ],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    </script>
+</body>
+</html>

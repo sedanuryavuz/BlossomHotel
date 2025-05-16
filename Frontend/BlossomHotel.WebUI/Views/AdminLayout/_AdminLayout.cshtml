@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+@await Html.PartialAsync("/Views/AdminLayout/HeadPartial.cshtml")
+
+<body>
+    @await Html.PartialAsync("/Views/AdminLayout/PreloaderPartial.cshtml")
+    <div class="d-flex">
+        @await Html.PartialAsync("/Views/AdminLayout/SidebarPartial.cshtml")
+
+        <div class="main-content flex-grow-1 p-4">
+
+            @await Html.PartialAsync("/Views/AdminLayout/HeaderPartial.cshtml")
+
+            <main>
+                @RenderBody()
+            </main>
+
+        </div>
+    </div>
+
+
+    @await Html.PartialAsync("/Views/AdminLayout/FooterPartial.cshtml")
+
+</body>
+
+</html>
+@await Html.PartialAsync("/Views/AdminLayout/ScriptPartial.cshtml")

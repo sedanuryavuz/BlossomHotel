@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlossomHotel.EntityLayer.Concrete
+﻿namespace BlossomHotel.WebUI.Models.Room
 {
-    public class Room
+    public class RoomViewModel
     {
         public int RoomId { get; set; }
         public string? RoomNumber { get; set; }
@@ -17,5 +11,6 @@ namespace BlossomHotel.EntityLayer.Concrete
         public string? Description { get; set; }
         public int Price { get; set; }
         public bool IsAvailable { get; set; }
+
     }
 }
