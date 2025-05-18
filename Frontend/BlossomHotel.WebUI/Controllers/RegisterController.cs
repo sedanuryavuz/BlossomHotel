@@ -32,7 +32,7 @@ namespace BlossomHotel.WebUI.Controllers
                 Name = createNewUserDto.Name,
                 Surname = createNewUserDto.Surname
             };
-            var result = await _userManager.CreateAsync(appUser, createNewUserDto.Password);
+            var result = await _userManager.CreateAsync(appUser, createNewUserDto.Password!);
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Login");

@@ -1,4 +1,6 @@
-﻿namespace BlossomHotel.WebUI.Dtos.RoomDto
+﻿using BlossomHotel.EntityLayer.Concrete;
+
+namespace BlossomHotel.WebUI.Dtos.RoomDto
 {
     public class CreateRoomDto
     {
@@ -10,5 +12,7 @@
         public string? Description { get; set; }
         public int Price { get; set; }
         public bool IsAvailable { get; set; }
+        public int HotelId { get; set; }
+        public Hotel? Hotel { get; set; }
     }
 }

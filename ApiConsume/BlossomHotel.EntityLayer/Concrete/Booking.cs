@@ -8,7 +8,7 @@ namespace BlossomHotel.EntityLayer.Concrete
 {
     public class Booking
     {
-        public int BookingID { get; set; }
+        public int BookingId { get; set; }
         public string? Name { get; set; }
         public string? Mail { get; set; }
         public DateTime Checkin { get; set; }
@@ -21,5 +21,8 @@ namespace BlossomHotel.EntityLayer.Concrete
         public string? Status { get; set; }
         public string? City { get; set; }
         public string? Country { get; set; }
+        public int RoomId { get; set; }
+        public Room? Room { get; set; }
+
     }
 }

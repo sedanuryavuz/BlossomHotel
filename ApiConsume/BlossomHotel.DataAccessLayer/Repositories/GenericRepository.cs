@@ -25,7 +25,7 @@ namespace BlossomHotel.DataAccessLayer.Repositories
 
         public T GetById(int id)
         {
-            return _context.Set<T>().Find(id);
+            return _context.Set<T>().Find(id)!;
         }
 
         public List<T> GetList()

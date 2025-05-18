@@ -1,0 +1,19 @@
+﻿@model CreateHotelDto
+@{
+    ViewData["Title"] = "AddHotel";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <label>Otel Adı</label>
+    <input type="text" asp-for="HotelName" class="form-control" />
+    <br />
+    <label>Adres</label>
+    <input type="text" asp-for="Address" class="form-control" />
+    <br />
+    <label>Açıklama</label>
+    <input type="text" asp-for="Description" class="form-control" />
+    <br />
+    <button class="btn btn-primary">Oteli Ekle</button>
+</form>
+

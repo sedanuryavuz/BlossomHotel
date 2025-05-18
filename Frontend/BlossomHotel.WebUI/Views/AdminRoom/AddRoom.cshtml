@@ -1,30 +1,48 @@
-﻿@model CreateRoomDto
+﻿@model CreateRoomViewModel
 @{
     ViewData["Title"] = "AddRoom";
     Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
 }
 
-<form method="post">
+<form method="post" action="AddRoom">
+
+    <label>Otel Seç</label>
+    <select asp-for="CreateRoomDto!.HotelId" class="form-control">
+        <option value="">Seçiniz</option>
+        @if (Model?.Hotels != null && Model.Hotels.Any())
+        {
+            foreach (var hotel in Model.Hotels)
+            {
+                <option value="@hotel.HotelId">@hotel.HotelName</option>
+            }
+        }
+        else
+        {
+            <option disabled>Otel listesi boş.</option>
+        }
+    </select>
+
+    <br />
     <label>Oda Numarası</label>
-    <input type="text" asp-for="RoomNumber" class="form-control" />
+    <input type="text" asp-for="CreateRoomDto!.RoomNumber" class="form-control" />
     <br />
     <label>Oda Başlığı</label>
-    <input type="text" asp-for="RoomTitle" class="form-control" />
+    <input type="text" asp-for="CreateRoomDto!.RoomTitle" class="form-control" />
     <br />
     <label>Fiyat</label>
-    <input type="text" asp-for="Price" class="form-control" />
+    <input type="text" asp-for="CreateRoomDto!.Price" class="form-control" />
     <br />
     <label>Yatak Odası Sayısı</label>
-    <input type="text" asp-for="BedCount" class="form-control" />
+    <input type="text" asp-for="CreateRoomDto!.BedCount" class="form-control" />
     <br />
     <label>Banyo Sayısı</label>
-    <input type="text" asp-for="BathCount" class="form-control" />
+    <input type="text" asp-for="CreateRoomDto!.BathCount" class="form-control" />
     <br />
     <label>Oda Kapak Fotoğrafı</label>
-    <input type="text" asp-for="RoomCoverImage" class="form-control" />
+    <input type="text" asp-for="CreateRoomDto!.RoomCoverImage" class="form-control" />
     <br />
     <label>Açıklama</label>
-    <input type="text" asp-for="Description" class="form-control" />
+    <input type="text" asp-for="CreateRoomDto!.Description" class="form-control" />
     <br />
     <button class="btn btn-primary">Odayı Ekle</button>
 </form>

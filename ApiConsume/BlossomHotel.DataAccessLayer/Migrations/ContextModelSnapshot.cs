@@ -134,11 +134,11 @@ namespace BlossomHotel.DataAccessLayer.Migrations
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Booking", b =>
                 {
-                    b.Property<int>("BookingID")
+                    b.Property<int>("BookingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
 
                     b.Property<string>("AdultCount")
                         .HasColumnType("nvarchar(max)");
@@ -170,15 +170,42 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.Property<string>("RoomCount")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SpecialRequest")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("BookingID");
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("RoomId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Hotel", b =>
+                {
+                    b.Property<int>("HotelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelId"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HotelName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HotelId");
+
+                    b.ToTable("Hotels");
                 });
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Room", b =>
@@ -198,6 +225,9 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
@@ -215,7 +245,42 @@ namespace BlossomHotel.DataAccessLayer.Migrations
 
                     b.HasKey("RoomId");
 
+                    b.HasIndex("HotelId");
+
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Staff", b =>
+                {
+                    b.Property<int>("StaffId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
+
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WorkDepartment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StaffId");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("Staffs");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -321,6 +386,39 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Booking", b =>
+                {
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.Room", "Room")
+                        .WithMany("Bookings")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Room", b =>
+                {
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.Hotel", "Hotel")
+                        .WithMany("Rooms")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Staff", b =>
+                {
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.Hotel", "Hotel")
+                        .WithMany("Staffs")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("BlossomHotel.EntityLayer.Concrete.AppRole", null)
@@ -370,6 +468,18 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Hotel", b =>
+                {
+                    b.Navigation("Rooms");
+
+                    b.Navigation("Staffs");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Room", b =>
+                {
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

@@ -33,7 +33,7 @@ namespace BlossomHotel.WebApi.Controllers
             _bookingService.TUpdate(booking);
             return Ok();
         }
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteBooking(int id)
         {
             var values = _bookingService.TGetById(id);

@@ -1,0 +1,48 @@
+﻿@model UpdateStaffViewModel
+@{
+    ViewData["Title"] = "UpdateStaff";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <input type="hidden" asp-for="StaffId" />
+    <label>Personel Adı</label>
+    <input type="text" asp-for="Name" class="form-control" />
+    <br />
+    <label>Personel Soyadı</label>
+    <input type="text" asp-for="Surname" class="form-control" />
+    <br />
+    <label>Personel Ünvanı</label>
+    <input type="text" asp-for="WorkDepartment" class="form-control" />
+    <br />
+    <label>Personel Cinsiyet</label>
+    <input type="text" asp-for="Gender" class="form-control" />
+    <br />
+    <label>Personel Resim </label>
+    <input type="text" asp-for="ImageUrl" class="form-control" />
+    <br />
+
+    <label>Otel Seç</label>
+    <select asp-for="HotelId" class="form-control">
+        <option value="">Seçiniz</option>
+        @if (Model?.Hotels != null && Model.Hotels.Any())
+        {
+            foreach (var hotel in Model.Hotels)
+            {
+                <option value="@hotel.HotelId">@hotel.HotelName</option>
+            }
+        }
+        else
+        {
+            <option disabled>Otel listesi boş.</option>
+        }
+    </select>
+    <span asp-validation-for="HotelId" class="text-danger"></span>
+
+    <br />
+    <button class="btn btn-primary">Personeli Güncelle</button>
+</form>
+
+
+
+

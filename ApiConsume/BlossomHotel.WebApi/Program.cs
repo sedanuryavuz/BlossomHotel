@@ -18,6 +18,14 @@ builder.Services.AddDbContext<Context>();
 builder.Services.AddScoped<IRoomDal, EfRoomDal>();
 builder.Services.AddScoped<IRoomService, RoomManager>();
 
+builder.Services.AddScoped<IHotelDal, EfHotelDal>();
+builder.Services.AddScoped<IHotelService, HotelManager>();
+
+builder.Services.AddScoped<IBookingDal, EfBookingDal>();
+builder.Services.AddScoped<IBookingService, BookingManager>();
+
+builder.Services.AddScoped<IStaffDal, EfStaffDal>();
+builder.Services.AddScoped<IStaffService, StaffManager>();
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 

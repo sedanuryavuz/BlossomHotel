@@ -17,5 +17,9 @@ namespace BlossomHotel.EntityLayer.Concrete
         public string? Description { get; set; }
         public int Price { get; set; }
         public bool IsAvailable { get; set; }
+        public int HotelId { get; set; }
+        public Hotel? Hotel { get; set; }
+        public List<Booking>? Bookings { get; set; }
+
     }
 }

@@ -29,4 +29,8 @@
     <ProjectReference Include="..\..\ApiConsume\BlossomHotel.EntityLayer\BlossomHotel.EntityLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Booking\" />
+  </ItemGroup>
+
 </Project>

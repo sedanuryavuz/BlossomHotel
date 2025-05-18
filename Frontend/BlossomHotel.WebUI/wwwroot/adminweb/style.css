@@ -286,3 +286,46 @@ footer a:hover {
     }
 }
 /*Index end*/
+
+/*Admin Login start*/
+.login-container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-box {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #f5baba;
+    margin-bottom: 30px;
+    margin-top: -10px;
+}
+
+.form-control {
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.btn-login {
+    border-radius: 10px;
+    background-color: #fde3e3;
+    color: #000;
+    font-weight: 500;
+}
+
+    .btn-login:hover {
+        background-color: #f9cfcf;
+    }
+/*Admin Login end*/
