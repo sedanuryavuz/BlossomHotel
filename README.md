@@ -51,9 +51,3 @@ Proje, **Clean Code** ve **SOLID** prensiplerine uygun olarak aşağıdaki şeki
 - Kullanıcı odaklı sade ve işlevsel menüler.
 
 - Admin paneli ve kullanıcı paneli için ayrı temalar.
-
-## 🔧 Kurulum ve Çalıştırma
-
-1. Bu repoyu klonlayın:
-   ```bash
-   git clone https://github.com/sedanuryavuz/BlossomHotel.git
