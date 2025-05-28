@@ -54,7 +54,7 @@ Proje, **Clean Code** ve **SOLID** prensiplerine uygun olarak aşağıdaki şeki
 ## 📸 Ekran Görüntüleri
 ![admin1](https://github.com/user-attachments/assets/c19c2c82-3f69-4d83-8e52-53eeb62ff643)
 
-![admin2](https://github.com/user-attachments/assets/5285b576-86a3-4f04-be89-7abda33cb34e)
+![admin2](https://github.com/user-attachments/assets/eabecf5d-5c25-4b85-abc2-d5ccfbe86e60)
 
 ![admin3](https://github.com/user-attachments/assets/57fff315-0142-4718-b2e7-4eb875e26ecf)
 
