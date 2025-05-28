@@ -51,3 +51,17 @@ Proje, **Clean Code** ve **SOLID** prensiplerine uygun olarak aşağıdaki şeki
 - Kullanıcı odaklı sade ve işlevsel menüler.
 
 - Admin paneli ve kullanıcı paneli için ayrı temalar.
+## 📸 Ekran Görüntüleri
+![admin1](https://github.com/user-attachments/assets/c19c2c82-3f69-4d83-8e52-53eeb62ff643)
+
+![admin2](https://github.com/user-attachments/assets/5285b576-86a3-4f04-be89-7abda33cb34e)
+
+![admin3](https://github.com/user-attachments/assets/57fff315-0142-4718-b2e7-4eb875e26ecf)
+
+![user1](https://github.com/user-attachments/assets/7d450075-f99b-470e-8c22-5ac483bbc91b)
+
+![user2](https://github.com/user-attachments/assets/b2f6d771-e657-4473-a92c-1ae72ad7601c)
+
+![user3](https://github.com/user-attachments/assets/c32a5932-6d5f-4390-8481-df66abab85c0)
+
+![user4](https://github.com/user-attachments/assets/7c1c460b-aaa0-4d6e-a8f3-1083490ef68a)
