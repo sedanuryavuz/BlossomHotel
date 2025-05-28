@@ -16,6 +16,27 @@ namespace BlossomHotel.BusinessLayer.Concrete
         {
             _bookingDal = bookingDal;
         }
+
+        public List<Booking> TGetBookingsByUserId(int userId)
+        {
+            return _bookingDal.GetBookingsByUserId(userId);
+        }
+
+        public void TBookingStatusChangeApproved(int id)
+        {
+            _bookingDal.BookingStatusChangeApproved(id);
+        }
+
+        public void TBookingStatusChangeCancel(int id)
+        {
+            _bookingDal.BookingStatusChangeCancel(id);
+        }
+
+        public void TBookingStatusChangeWait(int id)
+        {
+            _bookingDal.BookingStatusChangeWait(id);
+        }
+
         public void TDelete(Booking t)
         {
             _bookingDal.Delete(t);
@@ -39,6 +60,26 @@ namespace BlossomHotel.BusinessLayer.Concrete
         public void TUpdate(Booking t)
         {
             _bookingDal.Update(t);
+        }
+
+        public List<Booking> TGetBookingsByRoomId(int roomId)
+        {
+            return _bookingDal.GetBookingsByRoomId(roomId);
+        }
+
+        public decimal TGetTotalRevenue()
+        {
+            return _bookingDal.GetTotalRevenue();
+        }
+
+        public List<Booking> TGetRecentBookings(int count)
+        {
+            return _bookingDal.GetRecentBookings(count);
+        }
+
+        public List<Booking> TGetUpcomingCheckOuts(int count)
+        {
+            return _bookingDal.GetUpcomingCheckOuts(count);
         }
     }
 }

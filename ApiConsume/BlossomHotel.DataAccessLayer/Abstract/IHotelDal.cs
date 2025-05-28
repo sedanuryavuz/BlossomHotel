@@ -9,5 +9,6 @@ namespace BlossomHotel.DataAccessLayer.Abstract
 {
     public interface IHotelDal:IGenericDal<Hotel>
     {
+        List<Hotel> GetHotelsWithGallery();
     }
 }

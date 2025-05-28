@@ -1,0 +1,37 @@
+﻿@model List<BlossomHotel.WebUI.Dtos.RoomDto.ResultRoomDto>
+
+<section class="room-section">
+    <div class="room-container">
+        @if (Model == null || !Model.Any())
+        {
+            <p>Uygun oda bulunamadı.</p>
+        }
+        else
+        {
+            @foreach (var room in Model)
+            {
+                <div class="room-box">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-controller="Account" asp-action="AddFavorite" method="post" class="favorite-form">
+                            <input type="hidden" name="roomId" value="@room.RoomId" />
+                            <input type="hidden" name="userId" value="@User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value" />
+                            <button class="favorite-btn" type="submit"><i class="fas fa-heart"></i></button>
+                        </form>
+                    }
+                    else
+                    {
+                        <a href="/Login" class="btn btn-outline-danger"><i class="fas fa-heart"></i></a>
+                    }
+
+                    <img src="@($"https://localhost:7071/images/rooms/{room.RoomCoverImage}")" alt="Oda Resmi" class="room-image">
+                    <div class="room-content">
+                        <h3 class="room-title">@room.RoomTitle</h3>
+                        <span class="room-price">@room.Price ₺</span>
+                        <a asp-controller="Room" asp-action="RoomDetails" asp-route-id="@room.RoomId" class="room-btn">Detaylar</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>

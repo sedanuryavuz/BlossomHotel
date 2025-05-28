@@ -13,6 +13,7 @@ namespace BlossomHotel.EntityLayer.Concrete
         public string? Surname { get; set; }
         public string? Fullname => $"{Name} {Surname}";
         public string? Gender { get; set; }
+        public string? Description { get; set; }
         public string? WorkDepartment { get; set; }
         public string? ImageUrl { get; set; }
         public int HotelId { get; set; }

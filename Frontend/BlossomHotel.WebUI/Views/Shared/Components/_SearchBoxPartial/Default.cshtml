@@ -1,0 +1,49 @@
+﻿@model List<ResultHotelDto>
+@{
+    var today = DateTime.Now.ToString("yyyy-MM-dd");
+}
+
+<div class="container search-box">
+    <form asp-controller="Room" asp-action="RoomList" method="post">
+        <div class="row g-3">
+            <!-- Oteller Dropdown -->
+            <div class="col-md-3 col-12">
+                <label for="oteller" class="form-label">Oteller</label>
+                <select name="HotelId" class="form-select" required>
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.HotelId">@item.HotelName</option>
+                    }
+                </select>
+            </div>
+
+            <!-- Giriş Tarihi -->
+            <div class="col-md-2 col-12">
+                <label for="Checkin" class="form-label">Giriş Tarihi</label>
+                <input type="date" class="form-control" name="Checkin" id="Checkin" min="@today" required>
+            </div>
+
+            <!-- Çıkış Tarihi -->
+            <div class="col-md-2 col-12">
+                <label for="CheckOut" class="form-label">Çıkış Tarihi</label>
+                <input type="date" class="form-control" name="CheckOut" id="CheckOut" min="@today" required>
+            </div>
+
+            <!-- Yetişkin Sayısı -->
+            <div class="col-md-2 col-12">
+                <label for="AdultCount" class="form-label">Yetişkin Sayısı</label>
+                <input type="number" class="form-control" name="AdultCount" id="AdultCount" min="1" required>
+            </div>
+            <!-- Çocuk Sayısı -->
+            <div class="col-md-2 col-12">
+                <label for="ChildCount" class="form-label">Çocuk Sayısı</label>
+                <input type="number" class="form-control" name="ChildCount" id="ChildCount" min="0" required>
+            </div>
+
+            <!-- Ara Butonu -->
+            <div class="col-md-3 col-12 d-flex align-items-end">
+                <button type="submit" class="btn btn-light w-100" name="ara_buton">Ara</button>
+            </div>
+        </div>
+    </form>
+</div>

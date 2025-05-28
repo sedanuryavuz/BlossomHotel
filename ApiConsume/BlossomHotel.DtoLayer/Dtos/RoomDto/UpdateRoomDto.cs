@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BlossomHotel.EntityLayer.Concrete;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,13 +12,14 @@ namespace BlossomHotel.DtoLayer.Dtos.RoomDto
     public class UpdateRoomDto
     {
         public int RoomId { get; set; }
+        public int HotelId { get; set; }
 
         [Required(ErrorMessage = "Lütfen oda numarasını yazınız.")]
         public string? RoomNumber { get; set; }
         [Required(ErrorMessage = "Lütfen oda başlığı bilgisi giriniz.")]
 
         public string? RoomTitle { get; set; }
-        public string? RoomCoverImage { get; set; }
+        //public string? RoomCoverImage { get; set; }
         [Required(ErrorMessage = "Lütfen yatak sayısı giriniz.")]
         public string? BedCount { get; set; }
         [Required(ErrorMessage = "Lütfen banyo sayısı giriniz.")]
@@ -29,5 +32,10 @@ namespace BlossomHotel.DtoLayer.Dtos.RoomDto
         public bool IsAvailable { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public IFormFile? CoverImage { get; set; }
+        public List<IFormFile>? NewRoomImages { get; set; }
+        public string? RoomCoverImageUrl { get; set; }
+        public List<string>? RoomImageUrls { get; set; }
+
     }
 }

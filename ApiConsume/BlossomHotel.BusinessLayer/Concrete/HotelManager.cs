@@ -18,6 +18,11 @@ namespace BlossomHotel.BusinessLayer.Concrete
             _hotelDal = hotelDal;
         }
 
+        public List<Hotel> TGetHotelsWithGallery()
+        {
+            return _hotelDal.GetHotelsWithGallery();
+        }
+
         public void TDelete(Hotel t)
         {
             _hotelDal.Delete(t);

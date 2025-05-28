@@ -1,0 +1,21 @@
+﻿@model List<ResultHotelWithGalleryDto>
+
+<section class="mb-5">
+    <h2 class="section-title">Otel Lokasyonlarımız</h2>
+
+    <div class="row g-4">
+            @foreach(var item in Model){
+        <div class="col-md-4">
+            <div class="location-card text-center p-3">
+                    <img src="@(item.Gallery != null && item.Gallery.Any() ? item.Gallery.First().ImageUrl : "/images/default-hotel.jpg")"
+                         alt="@item.HotelName"
+                         class="img-fluid hotel-img" />
+                <h4>@item.HotelName</h4>
+                <p>Adres: @item.Address</p>
+                <p>Telefon: @item.PhoneNumber</p>
+                <p>Email: @item.Email</p>
+            </div>
+        </div>
+            }
+    </div>
+</section>

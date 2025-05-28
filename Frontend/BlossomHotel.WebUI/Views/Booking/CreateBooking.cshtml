@@ -1,0 +1,151 @@
+﻿@model BlossomHotel.WebUI.Models.Booking.CreateBookingViewModel
+
+@{
+    ViewData["Title"] = "Rezervasyon Yap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .container.mt-5 {
+        margin-top: 140px !important;
+    }
+</style>
+
+
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Rezervasyon Yap - @Model.RoomName</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="CreateBooking" method="post">
+                <input type="hidden" asp-for="RoomId" />
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <p>@error.ErrorMessage</p>
+                        }
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Mail"></label>
+                            <input asp-for="Mail" class="form-control" />
+                            <span asp-validation-for="Mail" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="Checkin"></label>
+                            <input asp-for="Checkin" type="date" class="form-control" id="Checkin" />
+                            <span asp-validation-for="Checkin" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="CheckOut"></label>
+                            <input asp-for="CheckOut" type="date" class="form-control" id="CheckOut" />
+                            <span asp-validation-for="CheckOut" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="AdultCount"></label>
+                            <input asp-for="AdultCount" class="form-control" id="AdultCount" min="0" />
+                            <span asp-validation-for="AdultCount" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label asp-for="ChildCount"></label>
+                            <input asp-for="ChildCount" class="form-control" id="ChildCount" min="0" />
+                            <span asp-validation-for="ChildCount" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label asp-for="SpecialRequest"></label>
+                            <textarea asp-for="SpecialRequest" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="SpecialRequest" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label asp-for="Description"></label>
+                            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12 text-center">
+                        <h4>Toplam Tutar: <span id="totalPrice">₺0</span></h4>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Rezervasyonu Tamamla</button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function calculateTotal() {
+            const adultCount = parseInt(document.getElementById("AdultCount").value) || 0;
+            const childCount = parseInt(document.getElementById("ChildCount").value) || 0;
+            const checkinValue = document.getElementById("Checkin").value;
+            const checkoutValue = document.getElementById("CheckOut").value;
+            const price = parseFloat('@Model.RoomPrice.ToString(System.Globalization.CultureInfo.InvariantCulture)');
+
+            if (!checkinValue || !checkoutValue) {
+                document.getElementById("totalPrice").innerText = "₺0";
+                return;
+            }
+
+            const checkin = new Date(checkinValue);
+            const checkout = new Date(checkoutValue);
+
+            const oneDay = 1000 * 60 * 60 * 24;
+            const nights = Math.max(0, Math.round((checkout - checkin) / oneDay));
+
+            if (nights > 0) {
+                const total = ((adultCount * price) + (childCount * price * 0.5)) * nights;
+                document.getElementById("totalPrice").innerText = `₺${total.toFixed(2)}`;
+            } else {
+                document.getElementById("totalPrice").innerText = "₺0";
+            }
+        }
+
+        document.getElementById("AdultCount").addEventListener("input", calculateTotal);
+        document.getElementById("ChildCount").addEventListener("input", calculateTotal);
+        document.getElementById("Checkin").addEventListener("change", calculateTotal);
+        document.getElementById("CheckOut").addEventListener("change", calculateTotal);
+
+        window.addEventListener("load", calculateTotal);
+    </script>
+}

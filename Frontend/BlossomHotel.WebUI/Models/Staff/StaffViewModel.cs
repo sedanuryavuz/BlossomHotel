@@ -9,6 +9,9 @@ namespace BlossomHotel.WebUI.Models.Staff
         public string? Surname { get; set; }
         public string? Fullname => $"{Name} {Surname}";
         public string? WorkDepartment { get; set; }
+        public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
+
         public int HotelIdId { get; set; }
         public Hotel? Hotel { get; set; }
 

@@ -7,5 +7,6 @@ namespace BlossomHotel.WebUI.Models.Room
     {
         public UpdateRoomDto? UpdateRoomDto { get; set; }
         public List<ResultHotelDto>? Hotels { get; set; }
+        //public List<string> RoomImageUrls { get; set; }
     }
 }

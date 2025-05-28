@@ -1,0 +1,40 @@
+﻿@model List<ResultAboutDto>
+@{
+    Layout = "_Layout";
+}
+
+@* About Sayfası  *@
+
+@foreach (var item in Model)
+{
+    <header class="about-us-header">
+        <h1>@item.Title1</h1>
+        <p class="lead">@item.Title2</p>
+    </header>
+
+    <main class="container mb-5">
+
+        <section class="mb-5">
+            <h2 class="section-title">Hakkımızda</h2>
+            <p class="text-center fs-5 mx-auto" style="max-width: 900px;">
+                @item.Description2
+            </p>
+        </section>
+
+        @await Component.InvokeAsync("_HotelsPartial")
+        @await Component.InvokeAsync("_StaffPartial")
+
+        <section class="mb-5 text-center">
+            <h2 class="section-title">Bize Ulaşın</h2>
+            <p>Her türlü soru ve rezervasyon talepleriniz için aşağıdaki iletişim kanallarımızdan bize ulaşabilirsiniz.</p>
+            <p><strong>Telefon:</strong> @item.PhoneNumber | <strong>Email:</strong> @item.Mail</p>
+            <div class="social-icons mt-3">
+                <a href="#" title="Facebook" aria-label="Facebook"><i class="@item.IconClass"></i></a>
+                <a href="#" title="Twitter" aria-label="Twitter"><i class="@item.IconClass3"></i></a>
+                <a href="#" title="Instagram" aria-label="Instagram"><i class="@item.IconClass2"></i></a>
+                <a href="#" title="LinkedIn" aria-label="LinkedIn"><i class="@item.IconClass4"></i></a>
+            </div>
+        </section>
+
+    </main>
+}

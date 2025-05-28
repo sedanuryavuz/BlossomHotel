@@ -2,6 +2,7 @@
 using BlossomHotel.WebUI.Dtos.RoomDto;
 using BlossomHotel.WebUI.Models.Room;
 using BlossomHotel.WebUI.Models.Staff;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -9,6 +10,7 @@ using System.Text;
 
 namespace BlossomHotel.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin,Calisan")]
     public class AdminStaffController : Controller
     {
         IHttpClientFactory _httpClientFactory;
@@ -41,14 +43,13 @@ namespace BlossomHotel.WebUI.Controllers
             var model = new AddStaffViewModel();
 
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync("https://localhost:7071/api/Hotel"); // Burası api/Hotels olabilir, doğru endpoint'e dikkat et.
+            var response = await client.GetAsync("https://localhost:7071/api/Hotel");
 
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
                 var hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(jsonData);
 
-                // Otel listesini SelectListItem listesine dönüştür
                 model.Hotels = hotels!.Select(h => new SelectListItem
                 {
                     Text = h.HotelName,
@@ -68,7 +69,6 @@ namespace BlossomHotel.WebUI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                // Otel listesini tekrar doldur
                 var client = _httpClientFactory.CreateClient();
                 var response = await client.GetAsync("https://localhost:7071/api/Hotel");
 
@@ -91,7 +91,6 @@ namespace BlossomHotel.WebUI.Controllers
                 return View(addStaffViewModel);
             }
 
-            // Burada API'nin beklediği Staff objesi oluşturuluyor
             var staffDto = new
             {
                 Name = addStaffViewModel.Name,
@@ -113,7 +112,6 @@ namespace BlossomHotel.WebUI.Controllers
                 return RedirectToAction("Index");
             }
 
-            // Başarısızsa modeli tekrar göster
             return View(addStaffViewModel);
         }
         public async Task<IActionResult> DeleteStaff(int id)
@@ -148,11 +146,11 @@ namespace BlossomHotel.WebUI.Controllers
             if (responseHotels.IsSuccessStatusCode)
             {
                 var jsonHotels = await responseHotels.Content.ReadAsStringAsync();
-                staff.Hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(jsonHotels);
+                staff!.Hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(jsonHotels);
             }
             else
             {
-                staff.Hotels = new List<ResultHotelDto>();
+                staff!.Hotels = new List<ResultHotelDto>();
             }
 
             return View(staff);
@@ -174,25 +172,12 @@ namespace BlossomHotel.WebUI.Controllers
                 {
                     model.Hotels = new List<ResultHotelDto>();
                 }
+
                 return View(model);
             }
 
             var client2 = _httpClientFactory.CreateClient();
-
-            // Burada sadece gerekli alanları DTO gibi seçiyoruz
-            var dto = new
-            {
-                Id = model.StaffId,
-                Name = model.Name,
-                Surname = model.Surname,
-                WorkDepartment = model.WorkDepartment,
-                Gender = model.Gender,
-                ImageUrl = model.ImageUrl,
-                HotelId = model.HotelId,
-                // Diğer API'nin beklediği alanlar burada
-            };
-
-            var jsonData = JsonConvert.SerializeObject(dto);
+            var jsonData = JsonConvert.SerializeObject(model);
             var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
             var response = await client2.PutAsync("https://localhost:7071/api/Staff", stringContent);
@@ -216,8 +201,10 @@ namespace BlossomHotel.WebUI.Controllers
                 {
                     model.Hotels = new List<ResultHotelDto>();
                 }
+
                 return View(model);
             }
         }
+
     }
 }

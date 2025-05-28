@@ -1,4 +1,5 @@
 ﻿using BlossomHotel.BusinessLayer.Abstract;
+using BlossomHotel.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,13 +22,13 @@ namespace BlossomHotel.WebApi.Controllers
             return Ok(values);
         }
         [HttpPost]
-        public IActionResult AddStaff(BlossomHotel.EntityLayer.Concrete.Staff staff)
+        public IActionResult AddStaff(Staff staff)
         {
             _staffService.TInsert(staff);
             return Ok();
         }
         [HttpPut]
-        public IActionResult UpdateStaff(BlossomHotel.EntityLayer.Concrete.Staff staff)
+        public IActionResult UpdateStaff(Staff staff)
         {
             _staffService.TUpdate(staff);
             return Ok();

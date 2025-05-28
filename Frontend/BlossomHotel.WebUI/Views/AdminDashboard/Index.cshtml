@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #3498db, #2c3e50);">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                    <div class="count">@ViewBag.TotalRooms</div>
+                        <div class="title">Total Rooms</div>
+                    </div>
+                    <i class="fas fa-bed"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #2ecc71, #27ae60);">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                    <div class="count">@ViewBag.OccupiedRooms</div>
+                        <div class="title">Occupied Rooms</div>
+                    </div>
+                    <i class="fas fa-key"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #e74c3c, #c0392b);">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                    <div class="count">0</div>
+                        <div class="title">Maintenance</div>
+                    </div>
+                    <i class="fas fa-tools"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #f39c12, #d35400);">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                    <div class="count">@ViewBag.TotalRevenue ₺</div>
+                        <div class="title">Today's Revenue</div>
+                    </div>
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <span>Recent Bookings</span>
+                <a href="AdminBooking/Index" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Guest</th>
+                                    <th>Room</th>
+                                    <th>Check-In</th>
+                                    <th>Check-Out</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var booking in ViewBag.RecentBookings)
+                            {
+                                <tr>
+                                    <td>@booking.Name</td>
+                                    <td>@booking.Room?.RoomNumber</td>
+                                    <td>@booking.Checkin.ToShortDateString()</td>
+                                    <td>@booking.CheckOut.ToShortDateString()</td>
+                                    <td>@booking.Status</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    Quick Actions
+                </div>
+                <div class="card-body">
+                <button class="btn btn-primary w-100 mb-3" href="/Booking/AddBooking">
+                        <i class="fas fa-plus me-2"></i> New Booking
+                    </button>
+                <button class="btn btn-outline-primary w-100 mb-3" href="/Room/RoomList">
+                        <i class="fas fa-bed me-2"></i> Manage Rooms
+                    </button>
+                    <button class="btn btn-outline-primary w-100 mb-3">
+                        <i class="fas fa-users me-2"></i> Add Guest
+                    </button>
+                    <button class="btn btn-outline-primary w-100 mb-3">
+                        <i class="fas fa-concierge-bell me-2"></i> Room Service
+                    </button>
+                    <button class="btn btn-outline-primary w-100">
+                        <i class="fas fa-file-invoice-dollar me-2"></i> Generate Invoice
+                    </button>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header">
+                    Upcoming Check-Outs
+                </div>
+                <div class="card-body">
+                @foreach (var checkout in ViewBag.UpcomingCheckOuts)
+                {
+                    <li class="list-group-item">
+                        <strong>@checkout.Room?.RoomNumber</strong><br />
+                        <small>@checkout.Name - @checkout.CheckOut.ToString("dd MMM yyyy HH:mm")</small>
+                    </li>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    // Occupancy Chart
+    const occupancyCtx = document.getElementById('occupancyChart').getContext('2d');
+    const occupancyChart = new Chart(occupancyCtx, {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Occupancy Rate %',
+                data: [65, 59, 70, 72, 75, 80, 85, 82, 78, 83, 75, 70],
+                backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                borderColor: 'rgba(52, 152, 219, 1)',
+                borderWidth: 2,
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+    // Room Status Chart
+    const roomStatusCtx = document.getElementById('roomStatusChart').getContext('2d');
+    const roomStatusChart = new Chart(roomStatusCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Available', 'Occupied', 'Reserved', 'Maintenance'],
+            datasets: [{
+                data: [24, 118, 15, 12],
+                backgroundColor: [
+                    '#2ecc71',
+                    '#e74c3c',
+                    '#3498db',
+                    '#f39c12'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            cutout: '70%'
+        }
+    });
+</script>

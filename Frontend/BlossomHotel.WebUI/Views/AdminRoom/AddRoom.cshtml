@@ -4,7 +4,7 @@
     Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
 }
 
-<form method="post" action="AddRoom">
+<form method="post" action="AddRoom" enctype="multipart/form-data">
 
     <label>Otel Seç</label>
     <select asp-for="CreateRoomDto!.HotelId" class="form-control">
@@ -21,29 +21,48 @@
             <option disabled>Otel listesi boş.</option>
         }
     </select>
-
+    <span asp-validation-for="CreateRoomDto!.HotelId" class="text-danger"></span>
     <br />
+
+    <input type="file" asp-for="CreateRoomDto!.RoomGallery" class="form-control" multiple />
+    <span asp-validation-for="CreateRoomDto!.RoomGallery" class="text-danger"></span>
+    <br />
+
     <label>Oda Numarası</label>
     <input type="text" asp-for="CreateRoomDto!.RoomNumber" class="form-control" />
+    <span asp-validation-for="CreateRoomDto!.RoomNumber" class="text-danger"></span>
     <br />
+
     <label>Oda Başlığı</label>
     <input type="text" asp-for="CreateRoomDto!.RoomTitle" class="form-control" />
+    <span asp-validation-for="CreateRoomDto!.RoomTitle" class="text-danger"></span>
     <br />
+
     <label>Fiyat</label>
     <input type="text" asp-for="CreateRoomDto!.Price" class="form-control" />
+    <span asp-validation-for="CreateRoomDto!.Price" class="text-danger"></span>
     <br />
+
     <label>Yatak Odası Sayısı</label>
     <input type="text" asp-for="CreateRoomDto!.BedCount" class="form-control" />
+    <span asp-validation-for="CreateRoomDto!.BedCount" class="text-danger"></span>
     <br />
+
     <label>Banyo Sayısı</label>
     <input type="text" asp-for="CreateRoomDto!.BathCount" class="form-control" />
+    <span asp-validation-for="CreateRoomDto!.BathCount" class="text-danger"></span>
     <br />
+
     <label>Oda Kapak Fotoğrafı</label>
-    <input type="text" asp-for="CreateRoomDto!.RoomCoverImage" class="form-control" />
+    <input type="file" asp-for="CreateRoomDto!.RoomCoverImage" class="form-control" multiple />
+    <span asp-validation-for="CreateRoomDto!.RoomCoverImage" class="text-danger"></span>
     <br />
+
     <label>Açıklama</label>
+    <textarea class="form-control h-150px" rows="6" asp-for="CreateRoomDto!.Description"></textarea>
     <input type="text" asp-for="CreateRoomDto!.Description" class="form-control" />
+    <span asp-validation-for="CreateRoomDto!.Description" class="text-danger"></span>
     <br />
+
     <button class="btn btn-primary">Odayı Ekle</button>
 </form>
-

@@ -1,0 +1,53 @@
+﻿
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+@await Component.InvokeAsync("_HeadPartial")
+
+
+<body class="index-body">
+   
+
+
+    <!-- Main Banner -->
+    @await Component.InvokeAsync("_MainBannerPartial")
+
+    <!-- Search Box Section -->
+    @await Component.InvokeAsync("_SearchBoxPartial")
+
+
+    <!--  Hotels -->
+    @await Component.InvokeAsync("_OurHotelsPartial")
+
+
+    <!-- Counter Başlangıç -->
+    @await Component.InvokeAsync("_CounterPartial")
+
+    <!-- Counter Bitiş -->
+
+    <!-- Ziyaretçi Yorumları Başlangıç -->
+    @await Component.InvokeAsync("_TestimonialPartial")
+    <!-- Ziyaretçi Yorumları Bitiş -->
+
+    <!-- Hizmetlerimiz Başlangıç -->
+    @await Component.InvokeAsync("_ServicePartial")
+    <!-- Hizmetlerimiz Bitiş -->
+
+    <!-- Map -->
+    @await Component.InvokeAsync("_MapPartial")
+
+    <!-- Map Bitiş -->
+
+    <!-- Footer -->
+
+
+    <!-- Footer Bitiş -->
+
+    <!-- Bootstrap JS -->
+
+
+</body>
+</html>

@@ -1,18 +1,25 @@
-﻿using BlossomHotel.BusinessLayer.Abstract;
-using BlossomHotel.EntityLayer.Concrete;
+﻿using BlossomHotel.EntityLayer.Concrete;
 using BlossomHotel.WebUI.Dtos.HotelDto;
 using BlossomHotel.WebUI.Dtos.RoomDto;
 using BlossomHotel.WebUI.Models.Room;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BlossomHotel.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin,Calisan")]
     public class AdminRoomController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;
+
         public AdminRoomController(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
@@ -24,22 +31,15 @@ namespace BlossomHotel.WebUI.Controllers
             var response = await client.GetAsync("https://localhost:7071/api/Room");
             if (response.IsSuccessStatusCode)
             {
-                var result = await response.Content.ReadAsStringAsync();
-                var values = JsonConvert.DeserializeObject<List<ResultRoomDto>>(result);
-                return View(values);
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var rooms = JsonConvert.DeserializeObject<List<ResultRoomDto>>(jsonData);
+                return View(rooms);
             }
-            else
-            {
-                ModelState.AddModelError("", "API kaynaklı bir hata oluştu.");
-            }
-            return View();
+            ModelState.AddModelError("", "API kaynaklı hata oluştu.");
+            return View(new List<ResultRoomDto>());
         }
-        [HttpGet]
-        //public IActionResult AddRoom()
-        //{
 
-        //    return View();
-        //}
+        [HttpGet]
         public async Task<IActionResult> AddRoom()
         {
             var model = new CreateRoomViewModel();
@@ -50,9 +50,7 @@ namespace BlossomHotel.WebUI.Controllers
             if (response.IsSuccessStatusCode)
             {
                 var jsonData = await response.Content.ReadAsStringAsync();
-                var hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(jsonData);
-
-                model.Hotels = hotels;
+                model.Hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(jsonData);
             }
             else
             {
@@ -60,41 +58,57 @@ namespace BlossomHotel.WebUI.Controllers
             }
 
             model.CreateRoomDto = new CreateRoomDto();
-
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> AddRoom(CreateRoomDto createRoomDto)
         {
             if (!ModelState.IsValid)
             {
-                var model = new CreateRoomViewModel();
                 var client = _httpClientFactory.CreateClient();
                 var response = await client.GetAsync("https://localhost:7071/api/Hotel");
-
+                var model = new CreateRoomViewModel { CreateRoomDto = createRoomDto };
                 if (response.IsSuccessStatusCode)
                 {
-                    var jsonData = await response.Content.ReadAsStringAsync();
-                    var hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(jsonData);
-
-                    model.Hotels = hotels;
+                    var hotelsJsonInvalid = await response.Content.ReadAsStringAsync();
+                    model.Hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(hotelsJsonInvalid);
                 }
                 else
                 {
                     model.Hotels = new List<ResultHotelDto>();
                 }
-
-                model.CreateRoomDto = createRoomDto ?? new CreateRoomDto();
-
                 return View(model);
             }
 
-            var client2 = _httpClientFactory.CreateClient();
+            var clientHttp = _httpClientFactory.CreateClient();
+            var content = new MultipartFormDataContent();
 
-            var jsonDataPost = JsonConvert.SerializeObject(createRoomDto);
-            var content = new StringContent(jsonDataPost, Encoding.UTF8, "application/json");
+           
+            content.Add(new StringContent(createRoomDto.RoomNumber ?? ""), "RoomNumber");
+            content.Add(new StringContent(createRoomDto.RoomTitle ?? ""), "RoomTitle");
+            content.Add(new StringContent(createRoomDto.Price.ToString()), "Price");
+            content.Add(new StringContent(createRoomDto.BedCount ?? ""), "BedCount");
+            content.Add(new StringContent(createRoomDto.BathCount ?? ""), "BathCount");
+            content.Add(new StringContent(createRoomDto.Description ?? ""), "Description");
+            content.Add(new StringContent(createRoomDto.HotelId.ToString()), "HotelId");
 
-            var responsePost = await client2.PostAsync("https://localhost:7071/api/Room", content);
+            if (createRoomDto.RoomCoverImage != null)
+            {
+                var coverStream = createRoomDto.RoomCoverImage.OpenReadStream();
+                content.Add(new StreamContent(coverStream), "CoverImage", createRoomDto.RoomCoverImage.FileName);
+            }
+
+            if (createRoomDto.RoomGallery != null && createRoomDto.RoomGallery.Any())
+            {
+                foreach (var image in createRoomDto.RoomGallery)
+                {
+                    var imageStream = image.OpenReadStream();
+                    content.Add(new StreamContent(imageStream), "RoomImages", image.FileName);
+                }
+            }
+
+            var responsePost = await clientHttp.PostAsync("https://localhost:7071/api/Room", content);
 
             if (responsePost.IsSuccessStatusCode)
             {
@@ -102,25 +116,24 @@ namespace BlossomHotel.WebUI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "Oda ekleme sırasında hata oluştu.");
-                var model = new CreateRoomViewModel();
+                ModelState.AddModelError("", "Oda eklenirken hata oluştu.");
+                var model = new CreateRoomViewModel { CreateRoomDto = createRoomDto };
 
-                var response = await client2.GetAsync("https://localhost:7071/api/Hotel");
-                if (response.IsSuccessStatusCode)
+                var responseHotels = await clientHttp.GetAsync("https://localhost:7071/api/Hotel");
+                if (responseHotels.IsSuccessStatusCode)
                 {
-                    var jsonData = await response.Content.ReadAsStringAsync();
-                    var hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(jsonData);
-                    model.Hotels = hotels;
+                    var hotelsJsonError = await responseHotels.Content.ReadAsStringAsync();
+                    model.Hotels = JsonConvert.DeserializeObject<List<ResultHotelDto>>(hotelsJsonError);
                 }
                 else
                 {
                     model.Hotels = new List<ResultHotelDto>();
                 }
 
-                model.CreateRoomDto = createRoomDto;
                 return View(model);
             }
         }
+
 
         public async Task<IActionResult> DeleteRoom(int id)
         {
@@ -130,12 +143,10 @@ namespace BlossomHotel.WebUI.Controllers
             {
                 return RedirectToAction("Index");
             }
-            else
-            {
-                ModelState.AddModelError("", "API kaynaklı bir hata oluştu.");
-            }
+            ModelState.AddModelError("", "API kaynaklı hata oluştu.");
             return View();
         }
+
         [HttpGet]
         public async Task<IActionResult> UpdateRoom(int id)
         {
@@ -147,8 +158,8 @@ namespace BlossomHotel.WebUI.Controllers
 
             if (responseRoom.IsSuccessStatusCode)
             {
-                var result = await responseRoom.Content.ReadAsStringAsync();
-                model.UpdateRoomDto = JsonConvert.DeserializeObject<UpdateRoomDto>(result);
+                var jsonData = await responseRoom.Content.ReadAsStringAsync();
+                model.UpdateRoomDto = JsonConvert.DeserializeObject<UpdateRoomDto>(jsonData);
             }
             else
             {
@@ -167,12 +178,13 @@ namespace BlossomHotel.WebUI.Controllers
 
             return View(model);
         }
-        [HttpPut]
+
+        [HttpPost]
         public async Task<IActionResult> UpdateRoom(UpdateRoomViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
-                // Aynı şekilde Hotels listesini doldurman gerekebilir.
                 var client = _httpClientFactory.CreateClient();
                 var responseHotels = await client.GetAsync("https://localhost:7071/api/Hotel");
                 if (responseHotels.IsSuccessStatusCode)
@@ -188,11 +200,35 @@ namespace BlossomHotel.WebUI.Controllers
             }
 
             var client2 = _httpClientFactory.CreateClient();
+            var content = new MultipartFormDataContent();
 
-            var jsonData = JsonConvert.SerializeObject(model.UpdateRoomDto);
-            var stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var dto = model.UpdateRoomDto;
 
-            var response = await client2.PutAsync("https://localhost:7071/api/Room", stringContent);
+            content.Add(new StringContent(dto!.RoomTitle ?? ""), nameof(dto.RoomTitle));
+            content.Add(new StringContent(dto.Description ?? ""), nameof(dto.Description));
+            content.Add(new StringContent(dto.HotelId.ToString() ?? ""), nameof(dto.HotelId));
+            content.Add(new StringContent(dto.RoomNumber!.ToString()), nameof(dto.RoomNumber));
+            content.Add(new StringContent(dto.BedCount!.ToString()), nameof(dto.BedCount));
+            content.Add(new StringContent(dto.BathCount!.ToString()), nameof(dto.BathCount));
+            content.Add(new StringContent(dto.Price.ToString()), nameof(dto.Price));
+            content.Add(new StringContent(dto.RoomId.ToString()), nameof(dto.RoomId)); 
+
+            if (dto.CoverImage != null)
+            {
+                var coverStream = dto.CoverImage.OpenReadStream();
+                content.Add(new StreamContent(coverStream), nameof(dto.CoverImage), dto.CoverImage.FileName);
+            }
+
+            if (dto.NewRoomImages != null && dto.NewRoomImages.Any())
+            {
+                foreach (var image in dto.NewRoomImages)
+                {
+                    var imageStream = image.OpenReadStream();
+                    content.Add(new StreamContent(imageStream), nameof(dto.NewRoomImages), image.FileName);
+                }
+            }
+
+            var response = await client2.PutAsync("https://localhost:7071/api/Room", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -200,8 +236,9 @@ namespace BlossomHotel.WebUI.Controllers
             }
             else
             {
-                ModelState.AddModelError("", "API kaynaklı bir hata oluştu.");
-                // Hotels listesini tekrar doldur.
+                var errorContent = await response.Content.ReadAsStringAsync();
+                ModelState.AddModelError("", $"API kaynaklı hata oluştu: {errorContent}");
+
                 var responseHotels = await client2.GetAsync("https://localhost:7071/api/Hotel");
                 if (responseHotels.IsSuccessStatusCode)
                 {
@@ -212,8 +249,29 @@ namespace BlossomHotel.WebUI.Controllers
                 {
                     model.Hotels = new List<ResultHotelDto>();
                 }
+
                 return View(model);
             }
         }
+
+
+        [HttpGet("DeleteImg")]
+        public async Task<IActionResult> DeleteImage(int id, int roomId)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.DeleteAsync($"https://localhost:7071/api/RoomImage/{id}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("UpdateRoom", new { id = roomId });
+            }
+            else
+            {
+                TempData["ImageDeleteError"] = "Fotoğraf silinemedi.";
+                return RedirectToAction("UpdateRoom", new { id = roomId });
+            }
+        }
+
+
     }
 }

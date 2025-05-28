@@ -1,0 +1,142 @@
+﻿@model BlossomHotel.WebUI.Dtos.RoomDto.ResultRoomDto
+
+<body class="room-detail">
+    <div class="container">
+        <div class="room-gallery">
+            <div class="slider-container">
+                @{
+                    var imageList = new List<string>();
+
+                    if (!string.IsNullOrEmpty(Model.RoomCoverImageUrl))
+                    {
+                        imageList.Add($"https://localhost:7071/images/rooms/{Model.RoomCoverImageUrl}");
+                    }
+
+                    if (Model.RoomImageUrls != null && Model.RoomImageUrls.Any())
+                    {
+                        foreach (var img in Model.RoomImageUrls)
+                        {
+                            if (img.StartsWith("http") || img.StartsWith("/images"))
+                            {
+                                imageList.Add(img.StartsWith("/") ? $"https://localhost:7071{img}" : img);
+                            }
+                            else
+                            {
+                                imageList.Add($"https://localhost:7071/images/rooms/{img}");
+                            }
+                        }
+                    }
+                }
+
+                @if (imageList.Any())
+                {
+                    int index = 0;
+                    foreach (var imageUrl in imageList)
+                    {
+                        <div class="myNewsSlides @(index == 0 ? "active" : "")">
+                            <img class="fotograf" src="@imageUrl" alt="Hotel Room" />
+                        </div>
+                        index++;
+                    }
+
+                    <a class="prev-news" onclick="plusNews(-1)">&#10094;</a>
+                    <a class="next-news" onclick="plusNews(1)">&#10095;</a>
+
+                    <div class="dots">
+                        @for (int i = 0; i < imageList.Count; i++)
+                        {
+                            <span class="dot @(i == 0 ? "active" : "")" onclick="currentNews(@(i + 1))"></span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <p>Resim bulunamadı.</p>
+                }
+            </div>
+
+            <div class="room-info">
+                <h1 class="hotel-name">@Model.HotelName</h1>
+                <p class="room-type">@Model.RoomType</p>
+                <p class="room-description">@Model.Description</p>
+
+                <div class="price-section">
+                    <span class="price-label">Gecelik Ücret:</span>
+                    <span class="price-amount">@Model.Price ₺</span>
+                </div>
+
+                <div class="price-section">
+                    <span class="price-label">Kalınacak Gün:</span>
+                    <span class="price-amount">Nights</span>
+                </div>
+
+                <div class="total-price">
+                    <div class="total-label">Toplam Fiyat</div>
+                    <div class="total-amount">@Model.Price ₺</div>
+                </div>
+
+                <a asp-controller="Booking" asp-action="CreateBooking" asp-route-roomId="@Model.RoomId" class="btn2">Rezerve Et</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .myNewsSlides {
+            display: none;
+        }
+
+            .myNewsSlides.active {
+                display: block;
+            }
+
+        .dot.active {
+            background-color: red;
+        }
+
+        .fotograf {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+
+    <script>
+        var slideIndex = 1;
+        showNews(slideIndex);
+
+        function plusNews(n) {
+            showNews(slideIndex += n);
+        }
+
+        function currentNews(n) {
+            showNews(slideIndex = n);
+        }
+
+        function showNews(n) {
+            var i;
+            var slides = document.getElementsByClassName("myNewsSlides");
+            var dots = document.getElementsByClassName("dot");
+
+            if (slides.length === 0) return; 
+
+            if (n > slides.length) { slideIndex = 1; }
+            if (n < 1) { slideIndex = slides.length; }
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+
+            for (i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+
+            slides[slideIndex - 1].classList.add("active");
+            dots[slideIndex - 1].classList.add("active");
+        }
+
+        setInterval(function () {
+            plusNews(1);
+        }, 5000);
+    </script>
+</body>

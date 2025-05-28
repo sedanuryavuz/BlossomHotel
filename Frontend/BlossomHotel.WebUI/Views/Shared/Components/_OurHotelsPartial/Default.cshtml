@@ -1,0 +1,57 @@
+﻿@model List<ResultHotelWithGalleryDto> 
+@foreach (var item in Model)
+{
+    if (item.City =="İstanbul")
+    {
+        <div class="container hotel-section">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <img src="@(item.Gallery != null && item.Gallery.Any() ? item.Gallery.First().ImageUrl : "/images/default-hotel.jpg")"
+                         alt="@item.HotelName"
+                         class="img-fluid hotel-img" />
+                </div>
+                <div class="col-lg-6">
+                    <div class="hotel-content">
+                        <h2 class="hotel-title">@item.HotelName</h2>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (item.City == "İzmir")
+    {
+        <div class="container-fluid hotel-section">
+            <div class="row no-gutters align-items-stretch">
+                <div class="col-md-12 col-lg-6 order-lg-2 d-flex justify-content-end">
+                    <img src="@(item.Gallery != null && item.Gallery.Any() ? item.Gallery.First().ImageUrl : "/images/default-hotel.jpg")"
+                         alt="@item.HotelName"
+                         class="img-fluid hotel-img" />
+                </div>
+                <div class="col-md-12 col-lg-6 order-lg-1 d-flex">
+                    <div class="hotel-content d-flex flex-column justify-content-center">
+                        <h2 class="hotel-title">@item.HotelName</h2>
+                        <p>@item.Description</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    if (item.City == "Aydın")
+    {
+        <div class="container-fluid hotel-section">
+            <div class="gallery">
+                @foreach (var image in item.Gallery!)
+                {
+                    <img src="@image.ImageUrl"
+                         alt="@item.HotelName"
+                         class="img-fluid gallery-img" />
+                }
+            </div>
+            <div class="hotel-content">
+                <h2 class="hotel-title">@item.HotelName</h2>
+                <p>@item.Description</p>
+            </div>
+        </div>
+    }
+}

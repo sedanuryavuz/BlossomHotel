@@ -1,10 +1,12 @@
 ﻿using BlossomHotel.WebUI.Dtos.HotelDto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
 
 namespace BlossomHotel.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminHotelController : Controller
     {
         private readonly IHttpClientFactory _httpClientFactory;

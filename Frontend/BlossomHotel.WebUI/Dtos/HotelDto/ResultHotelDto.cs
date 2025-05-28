@@ -1,4 +1,6 @@
-﻿namespace BlossomHotel.WebUI.Dtos.HotelDto
+﻿using BlossomHotel.EntityLayer.Concrete;
+
+namespace BlossomHotel.WebUI.Dtos.HotelDto
 {
     public class ResultHotelDto
     {

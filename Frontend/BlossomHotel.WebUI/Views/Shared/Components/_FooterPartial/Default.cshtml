@@ -1,0 +1,53 @@
+﻿@model List<ResultAboutDto>
+
+<footer class="footer-section pt-5 pb-4">
+    <div class="container text-md-left">
+        @if (Model != null && Model.Any())
+        {
+            var item = Model.First();
+
+            <div class="row text-md-left">
+
+                <!-- LOGO / HAKKIMIZDA -->
+                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">@item.Title1</h5>
+                    <p>@item.Description1</p>
+                </div>
+
+                <!-- HIZLI LİNKLER -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">Bağlantılar</h5>
+                    <p><a href="/" style="text-decoration: none; color:#555;">Anasayfa</a></p>
+                    <p><a href="/Service/Index" style="text-decoration: none; color:#555;">Hizmetlerimiz</a></p>
+                    <p><a href="/Contact/SendMessage" style="text-decoration: none; color:#555;">İletişim</a></p>
+                </div>
+
+                <!-- İLETİŞİM -->
+                <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 font-weight-bold">İletişim</h5>
+                    <p><i class="fas fa-home me-3"></i> @item.Address</p>
+                    <p><i class="fas fa-envelope me-3"></i> @item.Mail</p>
+                    <p><i class="fas fa-phone me-3"></i> @item.PhoneNumber</p>
+                </div>
+            </div>
+
+            <hr class="mb-4" />
+
+            <!-- ALT ÇİZGİ & SOSYAL MEDYA -->
+            <div class="row align-items-center">
+                <div class="col-md-7 col-lg-8">
+                    <p class="mb-0">© 2025 Tüm Hakları Saklıdır | <strong>@item.Title1</strong></p>
+                </div>
+
+                <div class="col-md-5 col-lg-4">
+                    <div class="text-center text-md-right">
+                        <a href="facebook.com" class="me-3" style="color: #555;"><i class="@item.IconClass"></i></a>
+                        <a href="instagram.com" class="me-3" style="color: #555;"><i class="@item.IconClass2"></i></a>
+                        <a href="x.com" class="me-3" style="color: #555;"><i class="@item.IconClass3"></i></a>
+                        <a href="youtube.com" class="me-3" style="color: #555;"><i class="@item.IconClass4"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</footer>

@@ -2,50 +2,68 @@
     <div class="text-center mb-4">
         <img src="~/adminweb/images/logo/logo_otel_white.png" alt="Blossom Booking" style="height: 120px;">
     </div>
+
     <ul class="nav flex-column">
+
+        <!-- Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" href="/AdminDashboard/Index">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+        </li>
+
+        <!-- Odalar -->
         <li class="nav-item">
             <a class="nav-link" href="/AdminRoom/Index">
                 <i class="fas fa-bed"></i> Odalar
             </a>
         </li>
-    </ul>
 
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="/AdminBooking/Index">
-                <i class="fas fa-bed"></i> Rezervasyonlar
-            </a>
-        </li>
-    </ul>
-
-    <ul class="nav flex-column">
+        <!-- Oteller -->
         <li class="nav-item">
             <a class="nav-link" href="/AdminHotel/Index">
-                <i class="fas fa-bed"></i> Oteller
+                <i class="fas fa-hotel"></i> Oteller
             </a>
         </li>
-    </ul>
 
-    <ul class="nav flex-column">
+        <!-- Rezervasyonlar -->
+        <li class="nav-item">
+            <a class="nav-link" href="/AdminBooking/Index">
+                <i class="fas fa-calendar-check"></i> Rezervasyonlar
+            </a>
+        </li>
+
+        <!-- Çalışanlar -->
         <li class="nav-item">
             <a class="nav-link" href="/AdminStaff/Index">
-                <i class="fas fa-bed"></i> Çalışanlar
+                <i class="fas fa-user-tie"></i> Çalışanlar
             </a>
         </li>
-    </ul>
-
-    <ul class="nav flex-column">
+        <!-- Mail -->
         <li class="nav-item">
-            <a class="nav-link" href="/AdminStaff/Index">
-                <i class="fas fa-bed"></i> Dashboard
+            <a class="nav-link" href="/AdminMail/Index">
+                <i class="fas fa-envelope-open-text"></i>Mail İşlemleri
             </a>
         </li>
-    </ul>
-    <ul class="nav flex-column">
+        <!-- Siteye Git -->
+        <li class="nav-item">
+            <a class="nav-link" href="/">
+                <i class="fas fa-globe"></i> Siteye Git
+            </a>
+        </li>
+
+        <!-- Şifre Değiştir -->
+        <li class="nav-item">
+            <a class="nav-link" href="/Account/ChangePassword">
+                <i class="fas fa-key"></i> Şifre Değiştir
+            </a>
+        </li>
+        <!-- Çıkış -->
         <li class="nav-item">
             <a class="nav-link" href="/AdminLogin/Logout">
-                <i class="fas fa-bed"></i> Çıkış Yap
+                <i class="fas fa-sign-out-alt"></i> Çıkış Yap
             </a>
         </li>
+
     </ul>
 </div>

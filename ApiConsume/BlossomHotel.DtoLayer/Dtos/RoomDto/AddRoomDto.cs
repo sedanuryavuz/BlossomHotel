@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace BlossomHotel.DtoLayer.Dtos.RoomDto
         [Required(ErrorMessage = "Lütfen oda başlığı bilgisi giriniz.")]
 
         public string? RoomTitle { get; set; }
-        public string? RoomCoverImage { get; set; }
+        //public string? RoomCoverImage { get; set; }
         [Required(ErrorMessage = "Lütfen yatak sayısı giriniz.")]
         public string? BedCount { get; set; }
         [Required(ErrorMessage = "Lütfen banyo sayısı giriniz.")]
@@ -25,5 +26,7 @@ namespace BlossomHotel.DtoLayer.Dtos.RoomDto
         public bool IsAvailable { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+        public IFormFile? RoomCoverImage { get; set; } 
+        public List<IFormFile>? RoomGallery { get; set; } 
     }
 }

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace BlossomHotel.WebUI.Controllers
 {
+    [Authorize(Roles = "Admin,Calisan")]
     public class AdminLayoutController : Controller
     {
         public IActionResult _AdminLayout()

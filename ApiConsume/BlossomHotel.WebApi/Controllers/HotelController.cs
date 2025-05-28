@@ -45,5 +45,11 @@ namespace BlossomHotel.WebApi.Controllers
             var values = _hotelService.TGetById(id);
             return Ok(values);
         }
+        [HttpGet("withGallery")]
+        public IActionResult HotelListWithGallery()
+        {
+            var values = _hotelService.TGetHotelsWithGallery();
+            return Ok(values);
+        }
     }
 }

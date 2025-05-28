@@ -1,0 +1,84 @@
+﻿@model CreateNewUserDto
+@{
+    Layout = "_Layout";
+}
+@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+{
+    <div class="alert alert-danger">@error.ErrorMessage</div>
+}
+
+
+@* register *@
+<style>
+    .py-5 {
+        padding-top: 165px !important;
+    }
+</style>
+<div class="container py-5">
+    <div class="row justify-content-center g-4">
+
+        <div class="col-md-5">
+            <div class="image-card h-90 d-flex flex-column">
+                <img src="~/adminweb/images/hotel/LaMurallaRoja.jpg" alt="La Muralla Roja" class="register-image">
+                <div class="image-caption">La Muralla Roja | Calpe, İspanya</div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="form-card p-4">
+                <div class="form-title">Kayıt Ol</div>
+                <form method="post">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label class="form-label">Ad</label>
+                            <input type="text" class="form-control" placeholder="Ad" asp-for="Name">
+                            <span asp-validation-for="Name" class="text-warning"></span>
+                        </div>
+                        <div class="col">
+                            <label class="form-label">Soyad</label>
+                            <input type="text" class="form-control" placeholder="Soyad" asp-for="Surname">
+                            <span asp-validation-for="Surname" class="text-warning"></span>
+
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">E-mail</label>
+                        <input type="email" class="form-control bg-light" placeholder="example@mail.com" asp-for="Mail">
+                        <span asp-validation-for="Mail" class="text-warning"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Telefon Numarası</label>
+                        <input type="tel" class="form-control" placeholder="05xxxxxxxxx" asp-for="PhoneNumber">
+                        <span asp-validation-for="PhoneNumber" class="text-warning"></span>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Şifre</label>
+                        <input type="password" class="form-control bg-light" placeholder="Şifreniz" asp-for="Password">
+                        <span asp-validation-for="Password" class="text-warning"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Şifre Tekrar</label>
+                        <input type="password" class="form-control bg-light" placeholder="Şifrenizi Tekrar Giriniz" asp-for="ConfirmPassword">
+                        <span asp-validation-for="ConfirmPassword" class="text-warning"></span>
+
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-register py-2">Kayıt Ol</button>
+                    </div>
+                </form>
+
+                <div class="text-right mt-3 login-link">
+                    Hesabın var mı?
+                    <a href="/Login/Index" class="login-link-a">Giriş Yap.</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

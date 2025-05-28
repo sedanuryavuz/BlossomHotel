@@ -4,48 +4,151 @@
     Layout = "~/Views/AdminLayout/_AdminLayout.cshtml";
 }
 
-<form method="post">
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var modelError in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@modelError.ErrorMessage</p>
+        }
+    </div>
+}
+
+<form method="post" action="UpdateRoom" enctype="multipart/form-data">
+
     <label>Otel Seç</label>
     <select asp-for="UpdateRoomDto!.HotelId" class="form-control">
         <option value="">Seçiniz</option>
-        @if (Model?.Hotels != null && Model.Hotels.Any())
+        @foreach (var hotel in Model.Hotels ?? new List<ResultHotelDto>())
         {
-            foreach (var hotel in Model.Hotels)
-            {
-                <option value="@hotel.HotelId">@hotel.HotelName</option>
-            }
-        }
-        else
-        {
-            <option disabled>Otel listesi boş.</option>
+            <option value="@hotel.HotelId" selected="@(hotel.HotelId == Model.UpdateRoomDto!.HotelId)">
+                @hotel.HotelName
+            </option>
         }
     </select>
+    <span asp-validation-for="UpdateRoomDto!.HotelId" class="text-danger"></span>
     <br />
 
     <input type="hidden" asp-for="UpdateRoomDto!.RoomId" />
     <label>Oda Numarası</label>
     <input type="text" asp-for="UpdateRoomDto!.RoomNumber" class="form-control" />
+    <span asp-validation-for="UpdateRoomDto!.RoomNumber" class="text-danger"></span>
     <br />
+
     <label>Oda Başlığı</label>
     <input type="text" asp-for="UpdateRoomDto!.RoomTitle" class="form-control" />
+    <span asp-validation-for="UpdateRoomDto!.RoomTitle" class="text-danger"></span>
     <br />
+
     <label>Fiyat</label>
     <input type="text" asp-for="UpdateRoomDto!.Price" class="form-control" />
+    <span asp-validation-for="UpdateRoomDto!.Price" class="text-danger"></span>
     <br />
-    <label>
-        Yatak Odası Sayısı
-    </label>
+
+    <label>Yatak Odası Sayısı</label>
     <input type="text" asp-for="UpdateRoomDto!.BedCount" class="form-control" />
+    <span asp-validation-for="UpdateRoomDto!.BedCount" class="text-danger"></span>
     <br />
+
     <label>Banyo Sayısı</label>
     <input type="text" asp-for="UpdateRoomDto!.BathCount" class="form-control" />
+    <span asp-validation-for="UpdateRoomDto!.BathCount" class="text-danger"></span>
     <br />
-    <label>Oda Kapak Fotoğrafı</label>
-    <input type="text" asp-for="UpdateRoomDto!.RoomCoverImage" class="form-control" />
+
+    @if (!string.IsNullOrEmpty(Model.UpdateRoomDto.RoomCoverImageUrl))
+    {
+        <div style="position: relative; display: inline-block;">
+            <label>Mevcut Kapak Resmi:</label><br />
+            <img src="@($"https://localhost:7071/images/rooms/{Model.UpdateRoomDto.RoomCoverImageUrl}")" class="img-fluid rounded" style="width: 200px; height: auto;" />
+            <button type="button" class="btn-close position-absolute"
+                    style="top: 25px!important; right: 8px!important; background-color: rgba(255,255,255,0.7); padding: 0.5rem;"
+                    data-image-url="@($"https://localhost:7071/images/rooms/{Model.UpdateRoomDto.RoomCoverImageUrl}")"
+                    data-room-id="@Model.UpdateRoomDto.RoomId"
+                    onclick="removeCoverImage(this.getAttribute('data-room-id'))">
+            </button>
+        </div>
+
+    }
     <br />
+    <label>Yeni Oda Kapak Fotoğrafı</label>
+    <br /><br />
+    <input type="file" asp-for="UpdateRoomDto!.CoverImage" class="form-control" />
+    <span asp-validation-for="UpdateRoomDto!.CoverImage" class="text-danger"></span>
+    <br />
+
+    <label>Mevcut Oda Resimleri:</label><br />
+    @if (Model.UpdateRoomDto!.RoomImageUrls != null && Model.UpdateRoomDto.RoomImageUrls.Any())
+    {
+        <div class="row" id="roomImagesContainer">
+            @foreach (var imageFileName in Model.UpdateRoomDto.RoomImageUrls)
+            {
+                var imageUrl = $"https://localhost:7071/images/rooms/{imageFileName}";
+                <div class="col-md-auto position-relative">
+                    <img src="@imageUrl" class="img-fluid rounded" style="height: 150px; object-fit: cover;" />
+                    <button type="button" class="btn-close position-absolute top-0 end-0 m-1" data-image-url="@imageUrl"
+                            style="top: 5px;  background-color: rgba(255,255,255,0.7); padding: 0.5rem;" onclick="removeImage(this)"></button>
+                </div>
+            }
+        </div>
+    }
+    <br />
+    <label>Yeni Oda Fotoğrafları (Çoklu)</label>
+    <br />
+    <input type="file" asp-for="UpdateRoomDto!.NewRoomImages" class="form-control" multiple />
+    <span asp-validation-for="UpdateRoomDto!.NewRoomImages" class="text-danger"></span>
+    <br />
+
     <label>Açıklama</label>
-    <input type="text" asp-for="UpdateRoomDto!.Description" class="form-control" />
+    <textarea class="form-control h-150px" rows="6" asp-for="UpdateRoomDto!.Description"></textarea>
+    <span asp-validation-for="UpdateRoomDto!.Description" class="text-danger"></span>
     <br />
+
     <button class="btn btn-primary">Odayı Güncelle</button>
 </form>
+
+<script>
+      const apiBaseUrl = "https://localhost:7071"; 
+
+    function removeImage(btn) {
+        const fullImageUrl = btn.getAttribute('data-image-url');
+        const imageType = btn.getAttribute('data-image-type'); 
+
+        if (!confirm('Bu fotoğrafı silmek istediğinize emin misiniz?')) return;
+
+        const urlPath = new URL(fullImageUrl).pathname.substring(1);
+
+        fetch(`https://localhost:7071/api/Room/DeleteImageByUrl?url=${encodeURIComponent(urlPath)}`, {
+            method: 'DELETE'
+        }).then(res => {
+            if (res.ok) {
+                if (imageType === "cover") {
+                    
+                    btn.parentElement.remove();
+                    
+                } else if (imageType === "gallery") {
+                    
+                    btn.parentElement.remove();
+                }
+                alert('Fotoğraf silindi.');
+            } else {
+                alert('Fotoğraf silinemedi.');
+            }
+        }).catch(() => alert('Bir hata oluştu.'));
+    }
+       function removeCoverImage(roomId) {
+        if (!confirm('Kapak fotoğrafını silmek istediğinize emin misiniz?')) return;
+
+        fetch(`https://localhost:7071/api/Room/DeleteCoverImage?RoomId=${roomId}`, {  
+            method: 'DELETE'
+        }).then(res => {
+            if (res.ok) {
+                alert('Kapak fotoğrafı silindi.');
+                location.reload();
+            } else {
+                alert('Kapak fotoğrafı silinemedi.');
+            }
+        }).catch(() => alert('Bir hata oluştu.'));
+    }
+
+</script>
 

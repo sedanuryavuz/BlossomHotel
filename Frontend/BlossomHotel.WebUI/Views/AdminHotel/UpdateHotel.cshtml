@@ -8,13 +8,19 @@
     <input type="hidden" asp-for="HotelId" />
     <label>Otel Adı</label>
     <input type="text" asp-for="HotelName" class="form-control" />
+    <span asp-validation-for="HotelName" class="text-danger"></span>
     <br />
+
     <label>Adres</label>
     <input type="text" asp-for="Address" class="form-control" />
+    <span asp-validation-for="HotelName" class="text-danger"></span>
     <br />
+
     <label>Açıklama</label>
     <input type="text" asp-for="Description" class="form-control" />
+    <span asp-validation-for="HotelName" class="text-danger"></span>
     <br />
+
     <button class="btn btn-primary">Oteli Güncelle</button>
 </form>
 

@@ -7,18 +7,22 @@
 <form method="post">
     <label>Personel Adı</label>
     <input type="text" asp-for="Name" class="form-control" />
+    <span asp-validation-for="Name" class="text-danger"></span>
     <br />
+
     <label>Personel Soyadı</label>
     <input type="text" asp-for="Surname" class="form-control" />
+    <span asp-validation-for="Surname" class="text-danger"></span>
     <br />
+
     <label>Personel Ünvanı</label>
     <input type="text" asp-for="WorkDepartment" class="form-control" />
+    <span asp-validation-for="WorkDepartment" class="text-danger"></span>
     <br />
+
     <label>Personel Cinsiyet</label>
     <input type="text" asp-for="Gender" class="form-control" />
-    <br />
-    <label>Personel Resim </label>
-    <input type="text" asp-for="ImageUrl" class="form-control" />
+    <span asp-validation-for="Gender" class="text-danger"></span>
     <br />
 
     <label>Otel Seç</label>

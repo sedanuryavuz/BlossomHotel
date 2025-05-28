@@ -1,0 +1,25 @@
+﻿@model List<ResultAboutDto>
+
+<section class="counter-section py-5" style="background-color: #f2e6ec; color: #555;">
+    <div class="container">
+        <div class="row text-center">
+            @foreach(var item in Model){
+
+            <div class="col-md-4">
+                    <h2 class="counter" style="color: #555;" data-target="@item.StaffCount">0</h2>
+                <p>Toplam Çalışan</p>
+            </div>
+
+            <div class="col-md-4">
+                    <h2 class="counter" style="color: #555;" data-target="@item.RoomCount">0</h2>
+                <p>Toplam Oda</p>
+            </div>
+
+            <div class="col-md-4">
+                    <h2 class="counter" style="color: #555;" data-target="@item.CustomerCount">0</h2>
+                <p>Mutlu Müşteri</p>
+            </div>
+            }
+        </div>
+    </div>
+</section>

@@ -3,6 +3,8 @@ using BlossomHotel.BusinessLayer.Concrete;
 using BlossomHotel.DataAccessLayer.Abstract;
 using BlossomHotel.DataAccessLayer.Concrete;
 using BlossomHotel.DataAccessLayer.EntityFramework;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<Context>();
-
 builder.Services.AddScoped<IRoomDal, EfRoomDal>();
 builder.Services.AddScoped<IRoomService, RoomManager>();
 
@@ -26,6 +27,25 @@ builder.Services.AddScoped<IBookingService, BookingManager>();
 
 builder.Services.AddScoped<IStaffDal, EfStaffDal>();
 builder.Services.AddScoped<IStaffService, StaffManager>();
+
+builder.Services.AddScoped<ITestimonialDal, EfTestimonialDal>();
+builder.Services.AddScoped<ITestimonialService, TestimonialManager>();
+
+builder.Services.AddScoped<IServicesDal, EfServiceDal>();
+builder.Services.AddScoped<IServiceService, ServiceManager>();
+
+builder.Services.AddScoped<IAboutDal, EfAboutDal>();
+builder.Services.AddScoped<IAboutService, AboutManager>();
+
+builder.Services.AddScoped<IContactDal, EfContactDal>();
+builder.Services.AddScoped<IContactService, ContactManager>();
+
+builder.Services.AddScoped<IFavoriteDal, EfFavoriteDal>();
+builder.Services.AddScoped<IFavoriteService, FavoriteManager>();
+
+builder.Services.AddScoped<IAppUserDal, EfAppUserDal>(); 
+builder.Services.AddScoped<IAppUserService, AppUserManager>();
+
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -42,6 +62,12 @@ builder.Services.AddCors(options =>
 
 
 var app = builder.Build();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(
+        Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")),
+    RequestPath = ""
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -50,6 +76,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// API Program.cs veya Startup.cs içine:
+
+app.UseStaticFiles();
+app.UseRouting();
 app.UseHttpsRedirection();
 
 //Using CORS

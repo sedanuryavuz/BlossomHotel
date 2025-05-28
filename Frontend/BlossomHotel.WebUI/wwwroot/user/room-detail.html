@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Room Details - Blossom Hotels</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="room-detail">
+  <div class="container">
+    <!-- Room Gallery -->
+    <div class="room-gallery">
+      <div class="slider-container">
+        <div class="myNewsSlides active">
+          <img class="fotograf" src="uploads/oda_uploads/ist_oda1_1.jpg" alt="Hotel Room" />
+        </div>
+        <div class="myNewsSlides">
+          <img class="fotograf" src="uploads/oda_uploads/ist_oda1_2.jpg" alt="Hotel Room" />
+        </div>
+        <div class="myNewsSlides">
+          <img class="fotograf" src="uploads/oda_uploads/ist_oda1_3.jpg" alt="Hotel Room" />
+        </div>
+        <a class="prev-news" onclick="plusNews(-1)">&#10094;</a>
+        <a class="next-news" onclick="plusNews(1)">&#10095;</a>
+        
+    <div class="dots">
+      <span class="dot active" onclick="currentNews(1)"></span>
+      <span class="dot" onclick="currentNews(2)"></span>
+      <span class="dot" onclick="currentNews(3)"></span>
+    </div>
+      </div>
+
+      <!-- Room Info -->
+      <div class="room-info">
+        <h1 class="hotel-name">Blossom Istanbul</h1>
+        <p class="room-type">Deluxe Room</p>
+        <p class="room-description">
+          Geniş ve zarif bir tasarıma sahip olan Deluxe odamızda lüksü ve konforu bir arada yaşayabilirsiniz. Şehir manzarası ve modern olanaklarla donatılmıştır.
+        </p>
+
+        <div class="price-section">
+          <span class="price-label">Nightly Rate:</span>
+          <span class="price-amount">1200 ₺</span>
+        </div>
+
+        <div class="price-section">
+          <span class="price-label">Stay Duration:</span>
+          <span class="price-amount">3 Nights</span>
+        </div>
+
+        <div class="total-price">
+          <div class="total-label">Total Price</div>
+          <div class="total-amount">3600 ₺</div>
+        </div>
+
+        <ul class="room-features">
+          <li><i class="fa-solid fa-bed"></i> 1 King-size bed</li>
+          <li><i class="fa-solid fa-wifi"></i> Free Wi-Fi</li>
+          <li><i class="fa-solid fa-tv"></i> Smart TV</li>
+          <li><i class="fa-solid fa-shower"></i> Private Bathroom</li>
+          <li><i class="fa-solid fa-snowflake"></i> Air Conditioning</li>
+          <li><i class="fa-solid fa-mug-saucer"></i> Coffee Machine</li>
+        </ul>
+
+        <a href="rezervasyon.php" class="btn2">Book Now</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    var slideIndex = 1;
+    showNews(slideIndex);
+
+    function plusNews(n) {
+      showNews(slideIndex += n);
+    }
+
+    function currentNews(n) {
+      showNews(slideIndex = n);
+    }
+
+    function showNews(n) {
+      var i;
+      var slides = document.getElementsByClassName("myNewsSlides");
+      var dots = document.getElementsByClassName("dot");
+
+      if (n > slides.length) { slideIndex = 1; }
+      if (n < 1) { slideIndex = slides.length; }
+
+      for (i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("active");
+      }
+
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+
+      slides[slideIndex - 1].classList.add("active");
+      dots[slideIndex - 1].className += " active";
+    }
+
+    setInterval(function () {
+      plusNews(1);
+    }, 5000);
+  </script>
+</body>
+</html>

@@ -13,16 +13,19 @@ namespace BlossomHotel.EntityLayer.Concrete
         public string? Mail { get; set; }
         public DateTime Checkin { get; set; }
         public DateTime CheckOut { get; set; }
-        public string? AdultCount { get; set; }
-        public string? ChildCount { get; set; }
-        public string? RoomCount { get; set; }
+        public int AdultCount { get; set; }
+        public int ChildCount { get; set; }
+        public int RoomCount { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string? SpecialRequest { get; set; }
         public string? Description { get; set; }
         public string? Status { get; set; }
         public string? City { get; set; }
         public string? Country { get; set; }
+        public decimal TotalPrice { get; set; }
         public int RoomId { get; set; }
         public Room? Room { get; set; }
-
+        public int AppUserId { get; set; }
+        public AppUser? AppUser { get; set; }
     }
 }

@@ -1,0 +1,61 @@
+﻿@model LoginUserDto
+@{
+    Layout = "_Layout";
+}
+@foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+{
+    <div class="alert alert-danger">@error.ErrorMessage</div>
+}
+
+@* Login *@
+<style>
+    .py-5 {
+        padding-top: 165px !important;
+    }
+</style>
+<body class="login-page">
+
+    <div class="container py-5">
+        <div class="row justify-content-center align-items-center g-4">
+
+            <div class="col-md-5">
+                <div class="login-image-card h-100 d-flex flex-column rounded-4 overflow-hidden shadow">
+                    <img src="~/adminweb/images/rand/hirosaki.jpg" alt="Hirosaki Castle Park" class="img-fluid">
+                    <div class="login-image-caption text-center text-white bg-dark bg-opacity-50 py-2 px-3">
+                        Hirosaki Castle Park | Hirosaki, Japonya
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="login-form-card p-5 rounded-4">
+                    <h2 class="text-center mb-4 text-secondary-emphasis">Giriş Yap</h2>
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label">E-mail:</label>
+                            <input type="email" class="form-control bg-light" placeholder="example@mail.com" asp-for="Mail">
+                            <span asp-validation-for="Mail" class="text-warning"></span>
+
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Şifre:</label>
+                            <input type="password" class="form-control bg-light" placeholder="Şifreniz" asp-for="Password" />
+                            <span asp-validation-for="Password" class="text-warning"></span>
+
+                        </div>
+                        <div class="d-grid mb-3">
+                            <button type="submit" class="btn login-btn-register py-2">Giriş Yap</button>
+                        </div>
+                        <div class="text-center">
+                            <a href="/Login/ForgotPassword" class="text-decoration-none text-secondary me-2">Şifremi Unuttum</a><br>
+                            <span class="text-muted">Hala hesabın yok mu? <a href="/Register/Index" class="text-decoration-underline text-dark">Hesap Oluştur</a></span><br>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>

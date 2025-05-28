@@ -1,0 +1,50 @@
+﻿@model List<BlossomHotel.EntityLayer.Concrete.Favorite>
+
+@{
+    Layout = "~/Views/Shared/Components/_AccountLayout/Default.cshtml";
+    ViewData["Title"] = "Favorilerim";
+}
+
+<div class="col-md-8">
+    <div class="pt-2">
+        <h5 class="mb-3">Favorilerim</h5>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p>Henüz favori eklemediniz.</p>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6">
+                    <div class="card h-100 shadow position-relative">
+                        <form asp-controller="Account" asp-action="DeleteFavorite" method="get" class="position-absolute top-0 end-0 m-2">
+                            <input type="hidden" name="favoriteId" value="@item.FavoriteId" />
+                            <input type="hidden" name="userId" value="@item.AppUserId" />
+                            <button class="btn btn-sm btn-danger" style="width: 70px; height: 50px;" title="Favoriden Kaldır">
+                                <i class="bi bi-heartbreak"></i>
+                            </button>
+                        </form>
+
+                        <img src="https://localhost:7071/images/rooms/@item.Room.RoomCoverImage"
+                             class="card-img-top" alt="Favori Oda" style="height: 200px; object-fit: cover;" />
+
+                        <div class="card-body">
+                            <h6 class="card-title"> @item.Room.Hotel.HotelName</h6>
+                            <p class="card-text">
+                                @item.Room.Hotel.City<br />
+                                Oda Tipi: @item.Room.RoomTitle
+                            </p>
+                            <a asp-controller="Room" asp-action="RoomDetails" asp-route-id="@item.Room.RoomId" class="btn btn-sm btn-outline-primary">
+                                Detayları Gör
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

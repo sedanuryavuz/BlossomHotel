@@ -1,0 +1,1073 @@
+/* === Genel Ayarlar === */
+* {
+  list-style: none;
+  font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+}
+
+.index-body {
+  margin: 0;
+  padding: 0;
+  background-color: #60636c;
+  color: white;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #f2e6ec;
+}
+
+/* === Genel Ayarlar Bitiş === */
+
+/* === Navbar === */
+.navbar {
+  background-color: transparent !important;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.scrolled {
+  background-color: rgba(96, 99, 108, 0.9) !important;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-link i {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* === Navbar Bitiş === */
+
+/* === Banner Alanı === */
+.main-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.main-banner img {
+  width: 100%;
+  height: auto;
+  filter: brightness(0.5);
+}
+
+.banner-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  z-index: 2;
+}
+
+/* === Banner Bitiş === */
+
+/* === Arama Kutusu === */
+.search-box {
+  background-color: rgba(229, 215, 222, 0.664);
+  border-radius: 40px;
+  padding: 20px;
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+}
+
+.search-box .row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.search-box .col-md-3,
+.search-box .col-md-2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+    .search-box .form-control,
+    .search-box .btn,
+    .search-box .form-select {
+        border-radius: 20px;
+        padding: 10px 20px;
+        width: 100%;
+       
+    }
+
+.search-box .col-md-3 {
+  flex: 1;
+}
+
+.search-box .col-md-2 {
+  flex: 0.8;
+}
+
+.search-box .form-label {
+  position: absolute;
+  color: white;
+  margin-bottom: 65px;
+}
+
+/* === Arama Kutusu Bitiş === */
+
+/* === Otel Bölümü === */
+.hotel-section {
+  margin: 100px 0;
+  position: relative;
+  width: 100%;
+}
+
+/* === Otel Bölümü Bitiş === */
+
+/* === Galeri === */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.gallery-img {
+  flex: 1 1 33.33%;
+  max-width: 33.33%;
+  height: auto;
+  display: block;
+  box-sizing: border-box;
+  filter: brightness(0.7);
+  transition: filter 0.3s ease;
+  padding: 0;
+  margin: 0;
+}
+
+.gallery>* {
+  flex: 1 1 auto;
+}
+
+.gallery-img:hover {
+  filter: brightness(1);
+}
+
+/* === Galeri Bitiş === */
+
+/* === Hizmetlerimiz === */
+.service-card {
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+}
+
+/* === Hizmetlerimiz Bitiş === */
+
+/* === Counter Başlangıç === */
+.counter {
+  font-size: 48px;
+  font-weight: bold;
+}
+
+/* === Counter Bitiş === */
+/* === Ziyaretçi Yorumları === */
+.testimonials-section {
+  background-color: #f8f9fa;
+}
+
+.testimonial-box {
+  max-width: 700px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.testimonial-box:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.testimonial-text {
+  font-style: italic;
+  color: #555;
+}
+
+.stars i {
+  font-size: 1.2rem;
+}
+
+/* === Ziyaretçi Yorumları Bitiş === */
+
+/* === Footer === */
+footer {
+    background-color: #f2e6ec;
+/*    background-color: #60636c;*/
+    color: #555;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* === Footer Bitiş === */
+
+/* === Scroll Butonu === */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: none;
+  z-index: 999;
+}
+
+/* === Scroll Butonu Bitiş === */
+
+/* === Mobil Uyumluluk === */
+
+/* Tablet (≤992px) */
+@media (max-width: 992px) {
+  .search-box {
+    top: 70%;
+    max-width: 100%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+  }
+
+  .main-banner img {
+    height: 50%;
+  }
+
+  .banner-text {
+    font-size: 2rem;
+  }
+
+  .search-box .row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .search-box .col-md-3 .form-select {
+    width: 180%;
+    max-width: 180%;
+  }
+
+  .search-box .col-md-3 .form-control,
+  .search-box .col-md-2 .form-control,
+  .search-box .col-md-3 .form-select,
+  .search-box .col-md-2 .form-select {
+    width: 100%;
+  }
+
+  .search-box .col-md-3 .btn {
+    width: 100%;
+  }
+
+  .gallery-img {
+    flex: 1 1 33.33%;
+  }
+}
+
+/* Telefon (≤768px) */
+@media (max-width: 768px) {
+  .search-box {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 20px;
+  }
+
+  .banner-text {
+    font-size: 1.5rem;
+  }
+
+  .search-box .row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-box .col-md-3,
+  .search-box .col-md-2 {
+    width: 100%;
+  }
+
+  .search-box .form-select,
+  .search-box .form-control,
+  .search-box .btn {
+    padding: 8px 15px;
+  }
+
+  .gallery-img {
+    flex: 1 1 33.33%;
+    margin: 0 4px;
+  }
+
+  .hotel-content {
+    padding: 15px;
+  }
+}
+
+/* Küçük Ekranlar (≤576px) */
+@media (max-width: 576px) {
+  .banner-text {
+    font-size: 1.2rem;
+  }
+
+  .search-box {
+    top: 60%;
+    max-width: 85%;
+    padding: 12px;
+  }
+
+  .search-box .form-select,
+  .search-box .form-control,
+  .search-box .btn {
+    padding: 6px 12px;
+  }
+}
+
+/* === Mobil Uyumluluk Bitiş === */
+
+
+
+/*Kayıt Ol Kısmı Başlangıç */
+.register-body {
+  background-color: #f2e6ec !important;
+  padding-top: 120px;
+  color: #333;
+}
+
+.image-card {
+  position: relative;
+  height: 90%;
+  overflow: hidden;
+  border-radius: 1rem;
+}
+
+.image-card img {
+  width: 90%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.image-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 16px;
+  width: 90%;
+
+}
+
+.form-title {
+  font-weight: bold;
+  font-size: 2rem;
+  color: #6f4d6c;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-label {
+  font-weight: 600;
+}
+
+.btn-register {
+  background-color: #f5ebf0;
+  color: #6f4d6c;
+  font-weight: 600;
+  border: none;
+}
+
+.btn-register:hover {
+  background-color: #e3d5db;
+}
+
+.login-link {
+  color: #5d5d5d;
+  font-size: 20px;
+  text-align: right;
+}
+
+.login-link-a {
+  color: #5d5d5d;
+}
+
+@media (max-width: 768px) {
+
+  .image-card,
+  .form-card {
+    margin-bottom: 20px;
+  }
+}
+
+/*Kayıt Ol Kısmı Bitiş */
+
+/* Giriş Yap Formu Başlangıç */
+.login-page {
+  background-color: #f2e6ec;
+}
+
+.login-page .login-image-card {
+  position: relative !important;
+  height: 100% !important;
+  border-radius: 20px;
+  overflow: hidden !important;
+}
+
+.login-page .login-image-card img {
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.login-page .login-image-caption {
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: white;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 8px 16px;
+}
+
+.login-page .login-btn-register {
+  background-color: #e9dce3;
+  color: #333;
+  border: none;
+  transition: 0.3s;
+}
+
+.login-page .login-btn-register:hover {
+  background-color: #d7c2d1;
+  color: #000;
+}
+
+/* Giriş Yap Formu Bitiş */
+
+
+/* İletişim Formu */
+.contact-section {
+  color: #333;
+  border-radius: 20px;
+  margin-top: 80px;
+}
+
+.contact-section h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+.contact-section .form-control,
+.contact-section .btn {
+  border-radius: 20px;
+}
+
+.contact-section .btn {
+  background-color: #60636c;
+  color: white;
+  transition: 0.3s ease;
+}
+
+.contact-section .btn:hover {
+  background-color: #4e5159;
+}
+
+/* İletişim Formu Bitiş */
+
+/* Kullanıcı Profili Başlangıç*/
+.profile-card,
+.update-form {
+  background-color: #f7ecf4;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-img i {
+  font-size: 70px;
+  color: #555;
+}
+
+.profile-links a {
+  display: block;
+  text-align: center;
+  margin: 10px 0;
+  color: #333;
+  text-decoration: none;
+}
+
+.profile-links a:hover {
+  text-decoration: underline;
+}
+
+label {
+  font-weight: 500;
+}
+
+.form-control {
+  background-color: #fff !important;
+}
+
+button[type="submit"] {
+  background-color: #ede4e9;
+  color: #333;
+  border: none;
+}
+
+/* Kullanıcı Profili Bitiş*/
+
+/* Oda Listesi Başlangıç*/
+.room-section {
+  padding: 10% 0;
+}
+
+.room-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 15px;
+}
+
+.room-box {
+  width: 100%;
+  max-width: 500px;
+  background-color: #f5ebf0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+.room-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.room-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.room-content {
+  padding: 20px;
+}
+
+.room-title {
+  color: #5d5d5d;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.room-type {
+  color: #7d7d7d;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.room-price {
+  color: #5d5d5d;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 20px 0;
+  display: block;
+}
+
+.room-btn {
+  display: inline-block;
+  background-color: #9d7f94;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.room-btn:hover {
+  background-color: #8a6e83;
+  color: white;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.favorite-btn:hover {
+  background-color: rgba(229, 215, 222, 0.9);
+}
+
+.favorite-btn i {
+  color: #9d7f94;
+  font-size: 1.2rem;
+}
+
+.no-rooms {
+  text-align: center;
+  padding: 50px;
+  color: #5d5d5d;
+  font-size: 1.2rem;
+}
+
+/* Responsive Ayarlar */
+@media (min-width: 768px) {
+  .room-box {
+    width: calc(50% - 30px);
+  }
+}
+
+@media (min-width: 992px) {
+  .room-box {
+    width: calc(33.333% - 30px);
+  }
+}
+
+@media (max-width: 576px) {
+  .room-image {
+    height: 200px;
+  }
+
+  .room-title {
+    font-size: 1.3rem;
+  }
+
+  .room-price {
+    font-size: 1.5rem;
+  }
+}
+
+/* Oda Listesi Bitiş*/
+
+/* Oda Bilgileri Başlangıç*/
+.room-detail {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: #f2e6ec;
+    color: #5d5d5d;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* === SLIDER GALERİ === */
+.room-gallery {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 40px;
+  margin-top:126px;
+}
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 500px;
+  margin: 20px auto;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.myNewsSlides {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.myNewsSlides.active {
+  display: block;
+}
+
+.fotograf {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.fotograf:hover {
+  transform: scale(1.03);
+}
+
+.prev-news,
+.next-news {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s;
+}
+
+.prev-news:hover,
+.next-news:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev-news {
+  left: 20px;
+}
+
+.next-news {
+  right: 20px;
+}
+
+.slider-container .dots {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 11;
+}
+
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #bbb;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  background-color: #9d7f94;
+}
+
+/* === ODA BİLGİLERİ === */
+.room-info {
+  background-color: #f5ebf0;
+  padding: 30px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-name {
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  color: #5d5d5d;
+  text-align: center;
+}
+
+.room-type {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #7d7d7d;
+  text-align: center;
+}
+
+.room-description {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  color: #666;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.price-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  padding: 15px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.price-label {
+  font-size: 1.2rem;
+}
+
+.price-amount {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.total-price {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.total-label {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.total-amount {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #9d7f94;
+}
+
+/* === ODA ÖZELLİKLERİ === */
+.room-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  margin-top: 20px;
+  padding: 0;
+  justify-content: center;
+}
+
+.room-features li {
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.room-features i {
+  color: #9d7f94;
+  margin-right: 10px;
+}
+
+/* === BUTON === */
+.btn2 {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 30px auto 0;
+  padding: 15px;
+  background-color: #9d7f94;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn2:hover {
+  background-color: #8a6e83;
+}
+
+/* === RESPONSIVE === */
+@media (min-width: 768px) {
+  .room-gallery {
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .slider-container {
+    flex: 1;
+    margin: 0;
+  }
+
+  .room-info {
+    flex: 1;
+    margin-top: 0;
+  }
+
+  .hotel-name,
+  .room-type,
+  .room-description {
+    text-align: left;
+  }
+}
+
+@media (max-width: 576px) {
+  .hotel-name {
+    font-size: 1.8rem;
+  }
+
+  .room-type {
+    font-size: 1.2rem;
+  }
+
+  .price-amount {
+    font-size: 1.5rem;
+  }
+
+  .total-amount {
+    font-size: 2rem;
+  }
+
+  .btn2 {
+    padding: 12px;
+    font-size: 1rem;
+  }
+}
+
+/* Oda Bilgileri Bitiş*/
+
+/* Hakkımızda Başlangıç*/
+.about-us {
+  background-color: #f5ebf0;
+  color: #60636c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-us-header {
+  background-image: url('images/hotel-uploads/hotel_bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 120px 20px;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+  margin-bottom: 60px;
+}
+
+.about-us-header h1 {
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.about-us-header p.lead {
+  font-size: 1.3rem;
+  font-weight: 300;
+}
+
+.section-title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #60636c;
+}
+
+.location-card,
+.team-member {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(96, 99, 108, 0.15);
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.location-card:hover,
+.team-member:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(96, 99, 108, 0.3);
+}
+
+.location-card img,
+.team-member img {
+  max-height: 160px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  object-fit: cover;
+}
+
+.team-member img {
+  border-radius: 50%;
+  max-width: 150px;
+  max-height: 150px;
+  margin: 0 auto 15px;
+  display: block;
+}
+
+/*footer {
+  background-color: #60636c;
+  color: #f5ebf0;
+  text-align: center;
+  padding: 20px 10px;
+  margin-top: auto;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: #f5ebf0;
+  text-decoration: none;
+  margin: 0 8px;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #ff6f91;
+}*/
+
+/* Sosyal medya ikonları */
+.social-icons a {
+  font-size: 1.8rem;
+  color: #60636c;
+  margin: 0 12px;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #ff6f91;
+}
+
+/* Responsive fixes */
+@media (max-width: 576px) {
+  header h1 {
+    font-size: 2.2rem;
+  }
+
+  header p.lead {
+    font-size: 1rem;
+  }
+}
+
+/* Hakkımızda Bitiş*/

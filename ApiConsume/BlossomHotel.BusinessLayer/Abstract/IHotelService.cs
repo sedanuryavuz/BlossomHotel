@@ -9,5 +9,6 @@ namespace BlossomHotel.BusinessLayer.Abstract
 {
     public interface IHotelService:IGenericService<Hotel>
     {
+        List<Hotel> TGetHotelsWithGallery();
     }
 }

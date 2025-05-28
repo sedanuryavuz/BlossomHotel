@@ -30,4 +30,8 @@
     <ProjectReference Include="..\BlossomHotel.EntityLayer\BlossomHotel.EntityLayer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\rooms\" />
+  </ItemGroup>
+
 </Project>

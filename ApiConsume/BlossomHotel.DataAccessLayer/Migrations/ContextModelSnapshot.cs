@@ -22,6 +22,73 @@ namespace BlossomHotel.DataAccessLayer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.About", b =>
+                {
+                    b.Property<int>("AboutId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AboutId"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CustomerCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconClass")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconClass2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconClass3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IconClass4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SocialPlatform")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialPlatform2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialPlatform3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SocialPlatform4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StaffCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AboutId");
+
+                    b.ToTable("Abouts");
+                });
+
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.AppRole", b =>
                 {
                     b.Property<int>("Id")
@@ -140,8 +207,11 @@ namespace BlossomHotel.DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
 
-                    b.Property<string>("AdultCount")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("AdultCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CheckOut")
                         .HasColumnType("datetime2");
@@ -149,14 +219,17 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.Property<DateTime>("Checkin")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ChildCount")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ChildCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -167,8 +240,8 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RoomCount")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("RoomCount")
+                        .HasColumnType("int");
 
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
@@ -179,11 +252,74 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.Property<string>("Status")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("BookingId");
+
+                    b.HasIndex("AppUserId");
 
                     b.HasIndex("RoomId");
 
                     b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Contact", b =>
+                {
+                    b.Property<int>("ContactId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactId"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MessageCategory")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ContactId");
+
+                    b.ToTable("Contacts");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Favorite", b =>
+                {
+                    b.Property<int>("FavoriteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FavoriteId"));
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FavoriteId");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Hotel", b =>
@@ -197,15 +333,45 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HotelName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("HotelId");
 
                     b.ToTable("Hotels");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.HotelImage", b =>
+                {
+                    b.Property<int>("HotelImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HotelImageId"));
+
+                    b.Property<int>("HotelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HotelImageId");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("HotelImages");
                 });
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Room", b =>
@@ -243,11 +409,57 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.Property<string>("RoomTitle")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("RoomType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("RoomId");
 
                     b.HasIndex("HotelId");
 
                     b.ToTable("Rooms");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.RoomImage", b =>
+                {
+                    b.Property<int>("RoomImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomImageId"));
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoomImageId");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("RoomImages");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Service", b =>
+                {
+                    b.Property<int>("ServiceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ServiceId"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ServiceIcon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ServiceId");
+
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Staff", b =>
@@ -257,6 +469,9 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
@@ -281,6 +496,34 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                     b.HasIndex("HotelId");
 
                     b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Testimonial", b =>
+                {
+                    b.Property<int>("TestimonialId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestimonialId"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TestimonialId");
+
+                    b.ToTable("Testimonials");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -388,13 +631,51 @@ namespace BlossomHotel.DataAccessLayer.Migrations
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Booking", b =>
                 {
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("BlossomHotel.EntityLayer.Concrete.Room", "Room")
                         .WithMany("Bookings")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AppUser");
+
                     b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Favorite", b =>
+                {
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.Room", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+
+                    b.Navigation("Room");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.HotelImage", b =>
+                {
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.Hotel", "Hotel")
+                        .WithMany("Gallery")
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hotel");
                 });
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Room", b =>
@@ -406,6 +687,17 @@ namespace BlossomHotel.DataAccessLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Hotel");
+                });
+
+            modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.RoomImage", b =>
+                {
+                    b.HasOne("BlossomHotel.EntityLayer.Concrete.Room", "Room")
+                        .WithMany("RoomGallery")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Staff", b =>
@@ -472,6 +764,8 @@ namespace BlossomHotel.DataAccessLayer.Migrations
 
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Hotel", b =>
                 {
+                    b.Navigation("Gallery");
+
                     b.Navigation("Rooms");
 
                     b.Navigation("Staffs");
@@ -480,6 +774,8 @@ namespace BlossomHotel.DataAccessLayer.Migrations
             modelBuilder.Entity("BlossomHotel.EntityLayer.Concrete.Room", b =>
                 {
                     b.Navigation("Bookings");
+
+                    b.Navigation("RoomGallery");
                 });
 #pragma warning restore 612, 618
         }

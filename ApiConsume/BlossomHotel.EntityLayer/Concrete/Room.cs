@@ -11,6 +11,7 @@ namespace BlossomHotel.EntityLayer.Concrete
         public int RoomId { get; set; }
         public string? RoomNumber { get; set; }
         public string? RoomTitle { get; set; }
+        public string? RoomType { get; set; }
         public string? RoomCoverImage { get; set; }
         public string? BedCount { get; set; }
         public string? BathCount { get; set; }
@@ -20,6 +21,7 @@ namespace BlossomHotel.EntityLayer.Concrete
         public int HotelId { get; set; }
         public Hotel? Hotel { get; set; }
         public List<Booking>? Bookings { get; set; }
+        public ICollection<RoomImage>? RoomGallery { get; set; }
 
     }
 }

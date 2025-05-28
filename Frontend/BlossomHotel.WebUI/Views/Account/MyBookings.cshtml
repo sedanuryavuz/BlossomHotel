@@ -1,0 +1,41 @@
+﻿@model List<BlossomHotel.EntityLayer.Concrete.Booking>
+
+@{
+    Layout = "~/Views/Shared/Components/_AccountLayout/Default.cshtml";
+    ViewData["Title"] = "Rezervasyonlarım";
+}
+
+<div class="pt-2">
+    <h5 class="mb-3">Rezervasyonlarım</h5>
+</div>
+
+@if (!Model.Any())
+{
+    <p>Henüz bir rezervasyonunuz bulunmamaktadır.</p>
+}
+else
+{
+    <div class="row g-3">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6">
+                <div class="card h-100 shadow">
+                    <img src="https://localhost:7071/images/rooms/@item.Room.RoomCoverImage"
+                         class="card-img-top" alt="Oda Resmi" style="height: 200px; object-fit: cover;" />
+                    <div class="card-body">
+                        <h6 class="card-title">@item.Room.Hotel.HotelName</h6>
+                        <p class="card-text">
+                            Giriş: @item.Checkin.ToString("dd MMMM yyyy") <br />
+                            Çıkış: @item.CheckOut.ToString("dd MMMM yyyy") <br />
+                            Oda: @item.Room.RoomTitle <br />
+                            Durum: <span class="badge bg-info">@item.Status</span>
+                        </p>
+                    </div>
+                    <div class="card-footer text-end bg-white border-top-0">
+                        <a asp-controller="Room" asp-action="RoomDetails" asp-route-id="@item.Room.RoomId" class="btn btn-sm btn-outline-primary">Detaylar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

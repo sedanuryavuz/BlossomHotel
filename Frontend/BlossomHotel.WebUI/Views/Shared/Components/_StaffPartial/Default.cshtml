@@ -1,0 +1,19 @@
+﻿@model List<StaffViewModel>
+
+<section class="mb-5">
+    <h2 class="section-title">Ekibimiz</h2>
+    <div class="row g-4 justify-content-center">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="team-member text-center p-3">
+                    <img src="@item.ImageUrl" alt="@item.Fullname" />
+                    <h5 class="mt-2">@item.Fullname</h5>
+                    <p>@item.WorkDepartment</p>
+                    <p>@item.Description</p>
+                </div>
+            </div>
+        }
+
+    </div>
+</section>

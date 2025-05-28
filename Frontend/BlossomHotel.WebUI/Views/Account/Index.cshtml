@@ -1,0 +1,28 @@
+﻿@model BlossomHotel.WebUI.Models.User.UpdateUserViewModel
+
+@{
+    Layout = "~/Views/Shared/Components/_AccountLayout/Default.cshtml";
+    ViewData["Title"] = "Profilim";
+}
+
+<div class="update-form">
+    <form asp-action="Update" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+            <label for="profilePhoto" class="form-label">Profil Fotoğrafı:</label>
+            <input type="file" class="form-control" id="profilePhoto" asp-for="ProfilePhoto" />
+        </div>
+
+    
+        <div class="mb-3">
+        <label class="form-label">Ad:</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Soyad:</label>
+        <input asp-for="Surname" class="form-control" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn">Güncelle</button>
+</form>
+</div>
