@@ -65,3 +65,5 @@ Proje, **Clean Code** ve **SOLID** prensiplerine uygun olarak aşağıdaki şeki
 ![user3](https://github.com/user-attachments/assets/c32a5932-6d5f-4390-8481-df66abab85c0)
 
 ![user4](https://github.com/user-attachments/assets/7c1c460b-aaa0-4d6e-a8f3-1083490ef68a)
+
+![user5](https://github.com/user-attachments/assets/1c2710de-5c81-428d-ac6d-831b788d8ea5)
